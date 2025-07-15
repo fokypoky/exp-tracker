@@ -15,14 +15,31 @@ paths:
       operationId: getTargets
       responses:
         "200":
-          description: Список целей пользователя
+          description: Список накопительных целей пользователя
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: "#/components/schemas/Target"
-
+        "400":
+          description: Некорректные параметры запроса
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+        "404":
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+        "500":
+          description: Техническая ошибка
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
 components:
   schemas:
     Target:
@@ -79,6 +96,35 @@ components:
         - endTime
         - targetCost
         - currentAmount
+    ErrorSchema:
+      type: object
+      properties:
+        code:
+          description: HTTP код ошибки
+          enum:
+            - 400
+            - 401
+            - 404
+            - 500
+        message:
+          type: string
+      required:
+        - code
+        - message
+  responses:
+    Error400:
+      description: Ошибка. Неправильные данные запроса
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorSchema"
+    Error404:
+      description: Ошибка. Ресурс не найден
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorSchema"
+
   securitySchemes:
     bearerAuth:
       type: http
