@@ -13,8 +13,8 @@ namespace MyFirstApi.Controllers
 
         public static List<TransactionCategory> transactionCategories = new List<TransactionCategory>
         {
-            new TransactionCategory {Id = 1, Name = "Зарплата", User = "Василий"},
-            new TransactionCategory {Id = 2, Name = "Бухло", User = "Василий"}
+            new TransactionCategory {Id = 1, Name = "Продукты питания", User = "Василий"},
+            new TransactionCategory {Id = 2, Name = "Аренда квартиры", User = "Василий"}
         };
 
         [HttpGet("{id}")]
