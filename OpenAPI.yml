@@ -1,0 +1,86 @@
+openapi: "3.0.3"
+info:
+  title: Exp tracker
+  version: "1.0"
+servers:
+  - url: http://localhost:5000
+paths:
+  /targets:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Targets
+      summary: Получить все накопительные цели пользователя
+      operationId: getTargets
+      responses:
+        "200":
+          description: Список целей пользователя
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Target"
+
+components:
+  schemas:
+    Target:
+      type: object
+      description: Накопительная цель пользователя
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          description: Идентификатор накопительной цели пользователя
+          example: 1
+        userId:
+          type: integer
+          format: int64
+          readOnly: true
+          description: Идентификатор пользователя, которому принадлежит данная цель
+        name:
+          type: string
+          minLength: 3
+          maxLength: 100
+          description: Название накопительной цели пользователя
+          example: Автомобиль
+        description:
+          type: string
+          maxLength: 2048
+          description: Описание накопительной цели пользователя
+          example: Нужна машина для пассажирских перевозок
+        created:
+          type: string
+          format: date-time
+          description: Дата и время создания накопительной цели в UTC
+          example: "2025-07-15T17:07:00Z"
+        endTime:
+          type: string
+          format: date-time
+          description: Дата окончания накопительной цели
+          example: "2026-11-30T00:00:00Z"
+        targetCost:
+          type: integer
+          format: int64
+          description: Целевая сумма, которую необходимо накопить
+          example: 80000000
+        currentAmount:
+          type: integer
+          format: int64
+          description: Сумма, отложенная на данный момент
+          example: 12000000
+      required:
+        - id
+        - userId
+        - name
+        - created
+        - endTime
+        - targetCost
+        - currentAmount
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
