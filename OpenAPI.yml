@@ -5,6 +5,127 @@ info:
 servers:
   - url: http://localhost:5000
 paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Регистрация
+      description: Регистрация нового пользователя
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthParameters"
+      responses:
+        "200":
+          description: Успешная регистрация
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenPair"
+        "400":
+          description: Пользователь уже существует
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Вход
+      description: Вход в профиль существующего пользователя
+      operationId: logIn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthParameters"
+      responses:
+        "200":
+          description: Успешный вход в аккаунт
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenPair"
+        "404":
+          description: Пользователь с таким логином и паролем не существует
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+  /auth/refresh:
+    post:
+      tags:
+        - Auth
+      summary: Обновление пары токенов авторизации
+      description: Обновление пары токенов авторизации
+      operationId: refreshToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshTokenRequest"
+      responses:
+        "200":
+          description: Успешное обновление пары токенов авторизации
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenPair"
+        "401":
+          description: Некорректный формат токена или токен устарел/не соответствует текущему в БД
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: Выход
+      description: Выход из учетной записи с отзывом refresh токена
+      operationId: logOut
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshTokenRequest"
+      responses:
+        "201":
+          description: Успешный выход из учетной записи. Refresh токен отозван
+          content: {}
+        "403":
+          description: Некорректный формат токена или токен устарел/не соответствует текущему в БД
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
+        "500":
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorSchema"
   /targets:
     get:
       security:
@@ -12,7 +133,7 @@ paths:
       tags:
         - Targets
       summary: Получить все накопительные цели пользователя
-      operationId: getTargets
+      operationId: listTargets
       responses:
         "200":
           description: Список накопительных целей пользователя
@@ -40,8 +161,26 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorSchema"
+
 components:
   schemas:
+    AuthParameters:
+      type: object
+      description: Параметры авторизации - пара логин и пароль
+      properties:
+        login:
+          type: string
+          maxLength: 10
+          minLength: 3
+          description: Логин пользователя
+          example: user123
+        password:
+          type: string
+          description: Пароль пользователя
+          minLength: 8
+      required:
+        - login
+        - password
     Target:
       type: object
       description: Накопительная цель пользователя
@@ -96,6 +235,25 @@ components:
         - endTime
         - targetCost
         - currentAmount
+    RefreshTokenRequest:
+      type: object
+      description: Запрос обновления пары токенов авторизации
+      properties:
+        refreshToken:
+          type: string
+      required:
+        - refreshToken
+    TokenPair:
+      type: object
+      description: Пара JWT токенов авторизации
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+      required:
+        - accessToken
+        - refreshToken
     ErrorSchema:
       type: object
       properties:
@@ -104,6 +262,7 @@ components:
           enum:
             - 400
             - 401
+            - 403
             - 404
             - 500
         message:
