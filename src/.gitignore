@@ -1,0 +1,9 @@
+#ide
+.idea
+
+#dotnet
+bin
+obj
+
+#node
+node_modules
