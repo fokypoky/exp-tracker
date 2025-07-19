@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2842D193
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.Api", "ExpTracker.Api\ExpTracker.Api.csproj", "{E399186B-8015-406B-A650-7883C6A9C200}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.DataAccess", "ExpTracker.DataAccess\ExpTracker.DataAccess.csproj", "{91BD700D-859D-478C-A64E-027831A39A35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.DataAccess.PostgreSQL", "ExpTracker.DataAccess.PostgreSQL\ExpTracker.DataAccess.PostgreSQL.csproj", "{91BD700D-859D-478C-A64E-027831A39A35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.Entities", "ExpTracker.Entities\ExpTracker.Entities.csproj", "{63E7AA23-C907-4BA2-AD1F-4AD53A281692}"
 EndProject
