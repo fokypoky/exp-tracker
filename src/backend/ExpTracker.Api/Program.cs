@@ -1,3 +1,4 @@
+using ExpTracker.Api.Extensions;
 using ExpTracker.DataAccess.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,10 @@ builder.Services.AddDbContext<ExpTrackerDbContext>(options =>
     var connectionString = builder.Configuration.GetValue<string>("PG_CONNECTION_STRING");
     options.UseNpgsql(connectionString);
 });
+
+
+builder.AddServices();
+builder.AddRepositories();
 
 var app = builder.Build();
 

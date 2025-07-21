@@ -1,10 +1,12 @@
 #ide
 .idea
+.vs
 
 #dotnet
 ExpTracker.sln.DotSettings.user
 bin
 obj
+*.csproj.user
 
 #node
 node_modules
