@@ -1,0 +1,10 @@
+#ide
+.idea
+
+#dotnet
+ExpTracker.sln.DotSettings.user
+bin
+obj
+
+#node
+node_modules
