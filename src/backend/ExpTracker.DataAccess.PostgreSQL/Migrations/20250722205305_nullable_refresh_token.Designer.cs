@@ -3,6 +3,7 @@ using System;
 using ExpTracker.DataAccess.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ExpTracker.DataAccess.PostgreSQL.Migrations
 {
     [DbContext(typeof(ExpTrackerDbContext))]
-    partial class ExpTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250722205305_nullable_refresh_token")]
+    partial class nullable_refresh_token
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,6 +157,7 @@ namespace ExpTracker.DataAccess.PostgreSQL.Migrations
                         .HasColumnName("password");
 
                     b.Property<string>("RefreshToken")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)")
                         .HasColumnName("refresh_token");

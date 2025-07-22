@@ -1,13 +1,17 @@
 using ExpTracker.Api.Extensions;
 using ExpTracker.DataAccess.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+	options.SerializerSettings.Formatting = Formatting.Indented;
+});
 
 builder.Services.AddDbContext<ExpTrackerDbContext>(options =>
 {

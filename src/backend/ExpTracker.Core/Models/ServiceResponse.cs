@@ -6,6 +6,15 @@
 		public T? Data { get; set; }
 		public string? Error { get; set; }
 
+		public static ServiceResponse<T> Ok(T entity)
+		{
+			return new ServiceResponse<T>()
+			{
+				Result = ResponseResult.Ok,
+				Data = entity
+			};
+		}
+
 		public static ServiceResponse<T> NotFound(string entity)
 		{
 			return new ServiceResponse<T>()

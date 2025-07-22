@@ -25,5 +25,22 @@ namespace ExpTracker.Core.Implementation
 				Error = user != null ? null : $"User {login} not exists"
 			};
 		}
+
+		public async Task<ServiceResponse<User>> CreateAsync(Guid guid, string login, string password, string refreshToken)
+		{
+			var user = new User() { Id = guid, Login = login, Password = password, RefreshToken = refreshToken };
+
+			var result = await _repository.CreateAsync(user);
+
+			return ServiceResponse<User>.Ok(user);
+		}
+
+		public async Task<ServiceResponse<User>> UpdateRefreshTokenAsync(User user, string refreshToken)
+		{
+			user.RefreshToken = refreshToken;
+			await _repository.UpdateAsync(user);
+
+			return ServiceResponse<User>.Ok(user);
+		}
 	}
 }

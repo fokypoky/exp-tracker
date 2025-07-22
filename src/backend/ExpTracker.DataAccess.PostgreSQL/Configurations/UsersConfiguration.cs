@@ -24,9 +24,9 @@ public class UsersConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
 
         builder.Property(e => e.RefreshToken)
-            .HasColumnName("refresh_token")
-            .HasMaxLength(256)
-            .IsRequired();
+	        .HasColumnName("refresh_token")
+	        .HasMaxLength(256)
+	        .IsRequired(false);
 
         builder
             .HasMany(u => u.TransactionCategories)

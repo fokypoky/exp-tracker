@@ -23,9 +23,12 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
 			return _context.Users.FirstOrDefaultAsync(_ => _.Login == login);
 		}
 
-		public Task<User> CreateAsync(User entity)
+		public async Task<User> CreateAsync(User user)
 		{
-			throw new NotImplementedException();
+			await _context.Users.AddAsync(user);
+			await _context.SaveChangesAsync();
+
+			return user;
 		}
 
 		public Task DeleteAsync(User entity)
@@ -33,9 +36,12 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
 			throw new NotImplementedException();
 		}
 
-		public Task<User> UpdateAsync(User entity)
+		public async Task<User> UpdateAsync(User user)
 		{
-			throw new NotImplementedException();
+			_context.Users.Update(user);
+			await _context.SaveChangesAsync();
+
+			return user;
 		}
 	}
 }
