@@ -26,19 +26,22 @@ namespace ExpTracker.Api.Controllers
 		[HttpPost("login")]
 		public async Task<IResult> LogIn(AuthRequest request)
 		{
-			throw new NotImplementedException();
+			var response = await _authService.LogIn(request);
+			return ResponseMapper.MapResponse(response);
 		}
 
 		[HttpPost("logout")]
 		public async Task<IResult> LogOut(RefreshTokenRequest request)
 		{
-			throw new NotImplementedException();
+			var response = await _authService.LogOut(request);
+			return ResponseMapper.MapResponse(response);
 		}
 
 		[HttpPost("refresh")]
 		public async Task<IResult> Refresh(RefreshTokenRequest request)
 		{
-			throw new NotImplementedException();
+			var response = await _authService.RefreshToken(request);
+			return ResponseMapper.MapResponse(response);
 		}
 	}
 }

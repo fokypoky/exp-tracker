@@ -18,6 +18,7 @@ namespace ExpTracker.Api.Mapping.ResponseMapper
 			return response.Result switch
 			{
 				ResponseResult.Ok => Results.Ok(response.Data),
+				ResponseResult.Created => Results.Created(),
 				ResponseResult.BadRequest => Results.BadRequest(MapError(response)),
 				ResponseResult.NotFound => Results.NotFound(MapError(response)),
 				ResponseResult.Unauthorized => Results.Unauthorized(),

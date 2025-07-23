@@ -21,19 +21,9 @@ namespace ExpTracker.Core.Implementation
 			_usersService = usersService;
 		}
 
-		public Task<ServiceResponse<JwtTokenPair>> LogIn(AuthRequest request)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<ServiceResponse<bool>> LogOut(RefreshTokenRequest request)
-		{
-			throw new NotImplementedException();
-		}
-
 		public async Task<ServiceResponse<JwtTokenPair>> Register(AuthRequest request)
 		{
-			var userResponse = await _usersService.GetUserByLoginAsync(request.Login);
+			var userResponse = await _usersService.GetByLoginAsync(request.Login);
 
 			if (userResponse.Result == ResponseResult.Ok)
 				return ServiceResponse<JwtTokenPair>.BadRequest($"{request.Login} already exists");
@@ -52,9 +42,67 @@ namespace ExpTracker.Core.Implementation
 			return ServiceResponse<JwtTokenPair>.Ok(tokenPair);
 		}
 
-		public Task<ServiceResponse<JwtTokenPair>> RefreshToken(RefreshTokenRequest request)
+		public async Task<ServiceResponse<JwtTokenPair>> LogIn(AuthRequest request)
 		{
-			throw new NotImplementedException();
+			var hash = HashPassword(request.Password);
+			var userResponse = await _usersService.GetByLoginAndPasswordAsync(request.Login, hash);
+
+			if (userResponse.Result != ResponseResult.Ok)
+				return new ServiceResponse<JwtTokenPair>() { Result = userResponse.Result, Error = userResponse.Error };
+
+			var tokenPair = CreateJwtTokenPair(CreateClaims(userResponse.Data!.Id.ToString(), request.Login));
+
+			await _usersService.UpdateRefreshTokenAsync(userResponse.Data!, tokenPair.RefreshToken);
+
+			return ServiceResponse<JwtTokenPair>.Ok(tokenPair);
+		}
+
+		public async Task<ServiceResponse<bool>> LogOut(RefreshTokenRequest request)
+		{
+			var guid = GetGuidFromToken(request.RefreshToken);
+
+			if (guid == null)
+				return ServiceResponse<bool>.Unauthorized("Invalid payload. Expected guid claim");
+
+			var userResponse = await _usersService.GetByIdAsync(guid.Value);
+
+			if (userResponse.Result != ResponseResult.Ok)
+				return new ServiceResponse<bool>() { Result = userResponse.Result, Error = userResponse.Error };
+
+			var refreshToken = userResponse.Data!.RefreshToken ?? "";
+
+			if (!refreshToken.Equals(request.RefreshToken))
+				return ServiceResponse<bool>.Unauthorized("Invalid refresh token");
+
+			await _usersService.UpdateRefreshTokenAsync(userResponse.Data!, null);
+
+			return ServiceResponse<bool>.Created();
+		}
+
+		public async Task<ServiceResponse<JwtTokenPair>> RefreshToken(RefreshTokenRequest request)
+		{
+			if (IsTokenExpired(request.RefreshToken))
+				return ServiceResponse<JwtTokenPair>.Unauthorized("Refresh token expired");
+
+			var guid = GetGuidFromToken(request.RefreshToken);
+			var login = GetLoginFromToken(request.RefreshToken);
+
+			if (guid == null)
+				return ServiceResponse<JwtTokenPair>.Unauthorized("Invalid payload. Expected guid claim");
+
+			if (login == null)
+				return ServiceResponse<JwtTokenPair>.Unauthorized("Invalid payload. Expected login claim");
+
+			var userResponse = await _usersService.GetByIdAsync(guid.Value);
+
+			if (userResponse.Result != ResponseResult.Ok)
+				return new ServiceResponse<JwtTokenPair>() { Result = userResponse.Result, Error = userResponse.Error };
+
+			var tokenPair = CreateJwtTokenPair(CreateClaims(guid.ToString()!, login));
+
+			await _usersService.UpdateRefreshTokenAsync(userResponse.Data!, tokenPair.RefreshToken);
+
+			return ServiceResponse<JwtTokenPair>.Ok(tokenPair);
 		}
 
 		private string HashPassword(string password)
@@ -107,6 +155,42 @@ namespace ExpTracker.Core.Implementation
 			);
 
 			return new JwtTokenPair() { AccessToken = accessToken, RefreshToken = refreshToken };
+		}
+
+		private List<Claim> GetTokenClaims(string token)
+		{
+			try
+			{
+				var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
+				return jwt.Claims.ToList();
+			}
+			catch (Exception e)
+			{
+				return new List<Claim>();
+			}
+		}
+
+		private Guid? GetGuidFromToken(string token)
+		{
+			return Guid.Parse(GetTokenClaims(token).FirstOrDefault(_ => _.Type == "guid").Value);
+		}
+
+		private string? GetLoginFromToken(string token)
+		{
+			return GetTokenClaims(token).FirstOrDefault(_ => _.Type == "login").Value;
+		}
+
+		private bool IsTokenExpired(string token)
+		{
+			try
+			{
+				var jwt = new JwtSecurityTokenHandler().ReadJwtToken(token);
+				return jwt.ValidTo <= DateTime.UtcNow;
+			}
+			catch (Exception e)
+			{
+				return true;
+			}
 		}
 	}
 }
