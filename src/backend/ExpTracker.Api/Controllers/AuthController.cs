@@ -17,28 +17,28 @@ namespace ExpTracker.Api.Controllers
 		}
 
 		[HttpPost("register")]
-		public async Task<IResult> Register(AuthRequest request)
+		public async Task<IResult> Register([FromBody] AuthRequest request)
 		{
 			var response = await _authService.Register(request);
 			return ResponseMapper.MapResponse(response);
 		}
 
 		[HttpPost("login")]
-		public async Task<IResult> LogIn(AuthRequest request)
+		public async Task<IResult> LogIn([FromBody] AuthRequest request)
 		{
 			var response = await _authService.LogIn(request);
 			return ResponseMapper.MapResponse(response);
 		}
 
 		[HttpPost("logout")]
-		public async Task<IResult> LogOut(RefreshTokenRequest request)
+		public async Task<IResult> LogOut([FromBody] RefreshTokenRequest request)
 		{
 			var response = await _authService.LogOut(request);
 			return ResponseMapper.MapResponse(response);
 		}
 
 		[HttpPost("refresh")]
-		public async Task<IResult> Refresh(RefreshTokenRequest request)
+		public async Task<IResult> Refresh([FromBody] RefreshTokenRequest request)
 		{
 			var response = await _authService.RefreshToken(request);
 			return ResponseMapper.MapResponse(response);
