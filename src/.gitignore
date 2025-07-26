@@ -1,6 +1,8 @@
 #ide
 .idea
 .vs
+.vs/
+
 
 #dotnet
 ExpTracker.sln.DotSettings.user
