@@ -6,11 +6,12 @@
 		public T? Data { get; set; }
 		public string? Error { get; set; }
 
-		public static ServiceResponse<T> Created()
+		public static ServiceResponse<T> Created(T entity)
 		{
 			return new ServiceResponse<T>()
 			{
-				Result = ResponseResult.Created
+				Result = ResponseResult.Created,
+				Data = entity
 			};
 		}
 

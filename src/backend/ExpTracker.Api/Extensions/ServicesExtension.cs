@@ -29,6 +29,7 @@ namespace ExpTracker.Api.Extensions
 		public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
 		{
 			builder.Services.AddSingleton<AuthOptions>(_ => CreateAuthOptions(builder));
+			builder.Services.AddSingleton<IAuthUtils, AuthUtils>();
 
 			builder.Services.AddScoped<IAuthService, AuthService>();
 			builder.Services.AddScoped<IUsersService, UsersService>();
