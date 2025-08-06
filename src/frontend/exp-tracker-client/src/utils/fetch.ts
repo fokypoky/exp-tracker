@@ -10,10 +10,10 @@ const instance = axios.create({
   baseURL: 'http://localhost:5170',
 });
 
-export const fetchApi = <T>(
+export const fetchApi = <T, U>(
   url: string,
   method: RequestMethodType,
-  body?: T,
+  body?: U,
   headers?: Record<string, any>
 ): Promise<AxiosResponse<T>> => {
   switch(method) {
@@ -24,10 +24,10 @@ export const fetchApi = <T>(
   }
 }
 
-export const authFetch = <T>(
+export const authFetch = <T, U>(
   url: string,
   method: RequestMethodType,
-  body?: T,
+  body?: U,
   headers?: Record<string, any>
 ): Promise<AxiosResponse<T>> => {
   const token = localStorage.getItem(LocalStorageKey.AccessToken) || '';

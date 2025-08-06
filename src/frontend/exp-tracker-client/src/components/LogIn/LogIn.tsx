@@ -1,26 +1,54 @@
+import { useEffect, useState } from 'react';
+
 import { Button, Form, Input } from 'antd';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { fetchApi, logInSchema } from '@utils';
 import { FormItem } from 'react-hook-form-antd';
 
-import styles from './LogIn.module.css';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { logInSchema } from '@utils';
+import { AuthRepository } from '@api';
+import { AppRoutes } from '@constants';
+import { useAuth } from '@hooks';
 import type { AuthFormType } from '@types';
 
+import styles from './LogIn.module.css';
+
 type AuthType = 'login' | 'register';
+
+const defaultValues: AuthFormType = {
+	login: '',
+	password: '',
+};
 
 export const LogIn = () => {
 	const [authType, setAuthType] = useState<AuthType | null>(null);
 
 	const { handleSubmit, control } = useForm({
-		defaultValues: { login: '', password: '' },
+		defaultValues: defaultValues,
 		resolver: yupResolver(logInSchema)
 	});
 
+	const { setTokenPair, isAuthorized } = useAuth();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		const authorized = isAuthorized();
+		authorized && navigate(AppRoutes.Profile);
+	}, []);
+
 	const onSubmit = (data: AuthFormType) => {
 		if (!authType) return;
-		fetchApi('/auth/register', 'POST', data).then((r) => console.log(r.data)).catch((e) => console.log(e))
+
+		const request = authType === 'register'
+			? AuthRepository.register(data)
+			: AuthRepository.logIn(data);
+
+		request.then((res) => {
+			const { accessToken, refreshToken } = res.data;
+			setTokenPair(accessToken, refreshToken);
+			navigate(AppRoutes.Profile);
+		});
 	}
 
 	return (
