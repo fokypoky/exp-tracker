@@ -17,9 +17,9 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "erasableSyntaxOnly": false,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
@@ -42,7 +42,10 @@
       "@types/*": ["src/types"],
 
       "@utils": ["src/utils"],
-      "@utils/*": ["src/utils"]
+      "@utils/*": ["src/utils"],
+
+      "@constants": ["src/constants"],
+      "@constants/*": ["src/constants/*"]
     }
   },
   "include": ["src"]

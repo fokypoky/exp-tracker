@@ -1,12 +1,18 @@
+import { Route, Routes } from 'react-router-dom';
+
+import { AppRoutes } from '@constants';
+import { LogInPage } from '@pages';
+
 import './App.css';
-import { Page } from '@components';
 
 const App = () => {
-  return (
-    <>
-      <Page/>
-    </>
-  );
+	return (
+		<Routes>
+			<Route path={AppRoutes.Login}>
+				<Route index element={ <LogInPage /> } />
+			</Route>
+		</Routes>
+	);
 };
 
 export default App;
