@@ -5,37 +5,41 @@ import type { JwtPayload } from '@types';
 import { LocalStorageKey } from '@constants';
 
 export const useAuth = () => {
-  const [accessToken, setAccessToken] = useState<string | null>(
-    localStorage.getItem(LocalStorageKey.AccessToken)
-  );
-  const [refreshToken, setRefreshToken] = useState<string | null>(
-    localStorage.getItem(LocalStorageKey.RefreshToken)
-  );
+	const [accessToken, setAccessToken] = useState<string | null>(
+		localStorage.getItem(LocalStorageKey.AccessToken),
+	);
+	const [refreshToken, setRefreshToken] = useState<string | null>(
+		localStorage.getItem(LocalStorageKey.RefreshToken),
+	);
 
-  const setTokenPair = (access: string, refresh: string) => {
-    setAccessToken(access);
-    setRefreshToken(refresh);
+	const setTokenPair = (access: string, refresh: string) => {
+		setAccessToken(access);
+		setRefreshToken(refresh);
 
-    localStorage.setItem(LocalStorageKey.AccessToken, access);
-    localStorage.setItem(LocalStorageKey.RefreshToken, refresh);
-  }
+		localStorage.setItem(LocalStorageKey.AccessToken, access);
+		localStorage.setItem(LocalStorageKey.RefreshToken, refresh);
+	};
 
-  const isAuthorized = (): boolean => {
+	const clearTokenPair = () => {
+		localStorage.removeItem(LocalStorageKey.AccessToken);
+		localStorage.removeItem(LocalStorageKey.RefreshToken);
+	}
 
-    const tokensExists = !!accessToken && !!refreshToken;
+	const isAuthorized = (): boolean => {
+		const tokensExists = !!accessToken && !!refreshToken;
 
-    if (!tokensExists) return false;
+		if (!tokensExists) return false;
 
-    try {
-      const { exp } = jwtDecode<JwtPayload>(refreshToken!);
-      const current = Math.floor(Date.now() / 1000);
+		try {
+			const { exp } = jwtDecode<JwtPayload>(refreshToken!);
+			const current = Math.floor(Date.now() / 1000);
 
-      return exp > current;
-    } catch(e) {
-      console.error(e);
-      return false;
-    }
-  }
+			return exp > current;
+		} catch (e) {
+			console.error(e);
+			return false;
+		}
+	};
 
-  return { accessToken, refreshToken, setTokenPair, isAuthorized };
-}
+	return { accessToken, refreshToken, clearTokenPair, setTokenPair, isAuthorized };
+};

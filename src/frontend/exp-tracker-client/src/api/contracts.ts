@@ -5,6 +5,10 @@ export type AuthRequest = {
   password: string;
 }
 
+export type RefreshTokenRequest = {
+  refreshToken: string;
+}
+
 // Responses
 
 export type JwtTokenPair = {

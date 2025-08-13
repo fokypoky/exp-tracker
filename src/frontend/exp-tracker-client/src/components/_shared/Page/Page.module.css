@@ -2,3 +2,9 @@
 	height: 100dvh;
 	width: 100dvw;
 }
+
+.actions-page {
+	display: grid;
+	grid-template-columns: min-content 1fr;
+}
+

@@ -1,8 +1,8 @@
 export enum AppRoutes {
   Login = '/',
   Profile = '/profile',
-  Transactions = '/transactions',
   Expenses = '/expenses',
+  Categories = '/categories',
 }
 
 export enum LocalStorageKey {
