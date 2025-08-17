@@ -25,12 +25,7 @@ builder.AddRepositories();
 
 var app = builder.Build();
 
-app.UseCors(config =>
-{
-    config.AllowAnyHeader();
-    config.AllowAnyOrigin();
-    config.AllowAnyMethod();
-});
+app.AddMiddlewares();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
