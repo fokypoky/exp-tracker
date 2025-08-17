@@ -15,6 +15,9 @@ namespace ExpTracker.Api.Extensions
 
 			app.UseMiddleware<ExceptionsMiddleware>();
 
+			app.UseAuthentication();
+			app.UseAuthorization();
+
 			return app;
 		}
 	}

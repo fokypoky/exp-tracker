@@ -2,6 +2,7 @@
 using ExpTracker.Core.Implementation;
 using ExpTracker.Core.Interfaces;
 using ExpTracker.Core.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ExpTracker.Api.Extensions
@@ -28,6 +29,30 @@ namespace ExpTracker.Api.Extensions
 
 		public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
 		{
+			var authOptions = CreateAuthOptions(builder);
+
+			builder.Services.AddAuthorization();
+			builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+				.AddJwtBearer(options =>
+				{
+					options.TokenValidationParameters = new TokenValidationParameters
+					{
+						// указывает, будет ли валидироваться издатель при валидации токена
+						ValidateIssuer = true,
+						// строка, представляющая издателя
+						ValidIssuer = authOptions.Issuer,
+						// будет ли валидироваться потребитель токена
+						ValidateAudience = false,
+						// будет ли валидироваться время существования
+						ValidateLifetime = true,
+						// установка ключа безопасности
+						IssuerSigningKey =
+							new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authOptions.AccessTokenSecret)),
+						// валидация ключа безопасности
+						ValidateIssuerSigningKey = true,
+					};
+				});
+
 			builder.Services.AddSingleton<AuthOptions>(_ => CreateAuthOptions(builder));
 			builder.Services.AddSingleton<IAuthUtils, AuthUtils>();
 
