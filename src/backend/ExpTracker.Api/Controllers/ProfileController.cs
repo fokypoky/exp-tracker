@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ExpTracker.Api.Controllers
 {
@@ -7,6 +8,7 @@ namespace ExpTracker.Api.Controllers
 	public class ProfileController : ControllerBase
 	{
 		[HttpGet]
+		[Authorize]
 		public async Task<IResult> GetProfile()
 		{
 			throw new NotImplementedException("Not implemented");
