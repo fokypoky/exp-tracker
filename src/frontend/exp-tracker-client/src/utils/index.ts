@@ -1,2 +1,2 @@
 export * from './validation/validationSchemas';
-export { fetchApi, authFetch } from './fetch';
+export * from './fetch';

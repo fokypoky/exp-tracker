@@ -102,7 +102,7 @@ namespace ExpTracker.Core.Implementation
 
 			await _usersService.UpdateRefreshTokenAsync(userResponse.Data!, tokenPair.RefreshToken);
 
-			return ServiceResponse<JwtTokenPair>.Created(tokenPair);
+			return ServiceResponse<JwtTokenPair>.Ok(tokenPair);
 		}
 	}
 }

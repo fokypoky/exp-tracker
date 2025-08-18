@@ -1,41 +1,30 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-import type { AxiosResponse } from "axios";
+import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 
-import { LocalStorageKey } from "@constants";
+export type RequestMethodType = 'GET' | 'POST';
 
-type RequestMethodType = 'GET' | 'POST';
+export type FetchFn = <TRequest, TResponse>(
+	url: string,
+	method: RequestMethodType,
+	body?: TRequest,
+	headers?: Record<string, string>,
+) => Promise<AxiosResponse<TResponse>>;
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5170',
+	baseURL: 'https://localhost:7166',
 });
 
-export const fetchApi = <T, U>(
-  url: string,
-  method: RequestMethodType,
-  body?: U,
-  headers?: Record<string, any>
-): Promise<AxiosResponse<T>> => {
-  switch(method) {
-    case 'GET':
-      return instance<T>(url, { method: 'get', headers });
-    case 'POST':
-      return instance<T>(url, { method: 'post', headers, data: body });
-  }
-}
-
-export const authFetch = <T, U>(
-  url: string,
-  method: RequestMethodType,
-  body?: U,
-  headers?: Record<string, any>
-): Promise<AxiosResponse<T>> => {
-  const token = localStorage.getItem(LocalStorageKey.AccessToken) || '';
-
-  const requestHeaders: Record<string, any> = {
-    ...headers,
-    ['Authorization']: `Bearer ${token}`,
-  };
-
-  return fetchApi(url, method, body, requestHeaders);
-}
+export const fetchApi = <TResponse, TRequest>(
+	url: string,
+	method: RequestMethodType,
+	body?: TRequest,
+	headers?: Record<string, string>,
+): Promise<AxiosResponse<TResponse>> => {
+	switch (method) {
+		case 'GET':
+			return instance<TResponse>(url, { method: 'get', headers });
+		case 'POST':
+			return instance<TResponse>(url, { method: 'post', headers, data: body });
+	}
+};

@@ -52,7 +52,14 @@ namespace ExpTracker.Core.Implementation
 
 		public async Task<ServiceResponse<User>> CreateAsync(Guid guid, string login, string password, string refreshToken)
 		{
-			var user = new User() { Id = guid, Login = login, Password = password, RefreshToken = refreshToken };
+			var user = new User()
+			{
+				Id = guid,
+				Login = login,
+				Password = password,
+				RefreshToken = refreshToken,
+				Registered = DateTime.UtcNow
+			};
 
 			await _repository.CreateAsync(user);
 

@@ -3,6 +3,7 @@ using System;
 using ExpTracker.DataAccess.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ExpTracker.DataAccess.PostgreSQL.Migrations
 {
     [DbContext(typeof(ExpTrackerDbContext))]
-    partial class ExpTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250818192813_user_registration_date")]
+    partial class user_registration_date
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,8 +162,7 @@ namespace ExpTracker.DataAccess.PostgreSQL.Migrations
                         .HasColumnName("refresh_token");
 
                     b.Property<DateTime>("Registered")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("registered");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 

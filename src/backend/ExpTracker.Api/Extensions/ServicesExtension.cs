@@ -58,6 +58,7 @@ namespace ExpTracker.Api.Extensions
 
 			builder.Services.AddScoped<IAuthService, AuthService>();
 			builder.Services.AddScoped<IUsersService, UsersService>();
+			builder.Services.AddScoped<IProfileService, ProfileService>();
 
 			return builder;
 		}
