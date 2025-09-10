@@ -15,17 +15,30 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
 
 		public Task<User> GetAsync(Guid id)
 		{
-			throw new NotImplementedException();
+			return _context.Users.FirstOrDefaultAsync(_ => _.Id == id);
 		}
 
-		public Task<User?> GetUserByLoginAsync(string login)
+		public Task<User?> GetByLoginAsync(string login)
 		{
 			return _context.Users.FirstOrDefaultAsync(_ => _.Login == login);
 		}
 
-		public Task<User> CreateAsync(User entity)
+		public Task<User?> GetByLoginAndPasswordAsync(string login, string password)
 		{
-			throw new NotImplementedException();
+			return _context.Users.FirstOrDefaultAsync(_ => _.Login == login && _.Password == password);
+		}
+
+		public Task<User?> GetByRefreshTokenAsync(string refreshToken)
+		{
+			return _context.Users.FirstOrDefaultAsync(_ => _.RefreshToken == refreshToken);
+		}
+
+		public async Task<User> CreateAsync(User user)
+		{
+			await _context.Users.AddAsync(user);
+			await _context.SaveChangesAsync();
+
+			return user;
 		}
 
 		public Task DeleteAsync(User entity)
@@ -33,9 +46,12 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
 			throw new NotImplementedException();
 		}
 
-		public Task<User> UpdateAsync(User entity)
+		public async Task<User> UpdateAsync(User user)
 		{
-			throw new NotImplementedException();
+			_context.Users.Update(user);
+			await _context.SaveChangesAsync();
+
+			return user;
 		}
 	}
 }

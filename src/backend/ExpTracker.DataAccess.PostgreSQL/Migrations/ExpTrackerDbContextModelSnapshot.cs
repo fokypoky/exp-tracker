@@ -154,10 +154,13 @@ namespace ExpTracker.DataAccess.PostgreSQL.Migrations
                         .HasColumnName("password");
 
                     b.Property<string>("RefreshToken")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)")
                         .HasColumnName("refresh_token");
+
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("registered");
 
                     b.HasKey("Id");
 

@@ -7,7 +7,7 @@ namespace ExpTracker.Core.Interfaces
 	public interface IAuthService
 	{
 		Task<ServiceResponse<JwtTokenPair>> LogIn(AuthRequest request);
-		Task<ServiceResponse<bool>> LogOut(RefreshTokenRequest request);
+		Task<ServiceResponse<bool?>> LogOut(RefreshTokenRequest request);
 		Task<ServiceResponse<JwtTokenPair>> Register(AuthRequest request);
 		Task<ServiceResponse<JwtTokenPair>> RefreshToken(RefreshTokenRequest request);
 	}

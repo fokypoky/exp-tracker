@@ -1,4 +1,7 @@
-﻿namespace ExpTracker.Core.Models
+﻿using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+
+namespace ExpTracker.Core.Models
 {
 	public class AuthOptions
 	{
@@ -7,5 +10,7 @@
 		public string RefreshTokenSecret { get; set; }
 		public int AccessTokenExpireMinutes { get; set; }
 		public int RefreshTokenExpireDays { get; set; }
+		public SigningCredentials AccessTokenSigningKey { get; set; }
+		public SigningCredentials RefreshTokenSigningKey { get; set; }
 	}
 }

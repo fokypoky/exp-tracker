@@ -24,8 +24,12 @@ public class UsersConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
 
         builder.Property(e => e.RefreshToken)
-            .HasColumnName("refresh_token")
-            .HasMaxLength(256)
+	        .HasColumnName("refresh_token")
+	        .HasMaxLength(256)
+	        .IsRequired(false);
+
+        builder.Property(e => e.Registered)
+            .HasColumnName("registered")
             .IsRequired();
 
         builder

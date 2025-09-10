@@ -5,6 +5,8 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Interfaces
 {
 	public interface IUsersRepository : IEntityRepository<User>
 	{
-		Task<User?> GetUserByLoginAsync(string login);
+		Task<User?> GetByLoginAsync(string login);
+		Task<User?> GetByLoginAndPasswordAsync(string login, string password);
+		Task<User?> GetByRefreshTokenAsync(string refreshToken);
 	}
 }

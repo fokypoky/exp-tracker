@@ -1,11 +1,11 @@
-﻿using ExpTracker.Core.Interfaces;
+﻿using ExpTracker.Api.Mapping.ResponseMapper;
+using ExpTracker.Core.Interfaces;
 using ExpTracker.Entities.Dto.Requests.Auth;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpTracker.Api.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("[controller]")]
 	[ApiController]
 	public class AuthController : ControllerBase
 	{
@@ -17,10 +17,31 @@ namespace ExpTracker.Api.Controllers
 		}
 
 		[HttpPost("register")]
-		public async Task<IActionResult> Register(AuthRequest request)
+		public async Task<IResult> Register([FromBody] AuthRequest request)
 		{
 			var response = await _authService.Register(request);
-			return Ok();
+			return ResponseMapper.MapResponse(response);
+		}
+
+		[HttpPost("login")]
+		public async Task<IResult> LogIn([FromBody] AuthRequest request)
+		{
+			var response = await _authService.LogIn(request);
+			return ResponseMapper.MapResponse(response);
+		}
+
+		[HttpPost("logout")]
+		public async Task<IResult> LogOut([FromBody] RefreshTokenRequest request)
+		{
+			var response = await _authService.LogOut(request);
+			return ResponseMapper.MapResponse(response);
+		}
+
+		[HttpPost("refresh")]
+		public async Task<IResult> Refresh([FromBody] RefreshTokenRequest request)
+		{
+			var response = await _authService.RefreshToken(request);
+			return ResponseMapper.MapResponse(response);
 		}
 	}
 }
