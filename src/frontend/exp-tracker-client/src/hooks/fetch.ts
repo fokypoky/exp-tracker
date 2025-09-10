@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import { fetchApi, type RequestMethodType } from '@utils';
-import { type AxiosError, HttpStatusCode } from 'axios';
-import { AppRoutes, LocalStorageKey } from '@constants';
-import { ApiContracts } from '@api';
+import { type AxiosError, type AxiosResponse, HttpStatusCode } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ApiContracts } from '@api';
+import { AppRoutes, LocalStorageKey } from '@constants';
+import { fetchApi, type RequestMethodType } from '@utils';
 
 export const useFetch = () => {
 	const [loading, setLoading] = useState<boolean>(false);
@@ -28,7 +28,7 @@ export const useFetch = () => {
 		};
 
 		try {
-			const result = await fetchApi<TRequest, TRequest>(url, method, body, requestHeaders);
+			const result = await fetchApi<TResponse, TRequest>(url, method, body, requestHeaders);
 			return result;
 			// @ts-ignore
 		} catch (e: AxiosError<any>) {
@@ -47,9 +47,6 @@ export const useFetch = () => {
 					);
 
 					const { accessToken, refreshToken } = refreshResponse.data;
-
-					console.log('access', accessToken);
-					console.log('refresh', refreshToken);
 
 					localStorage.setItem(LocalStorageKey.AccessToken, accessToken);
 					localStorage.setItem(LocalStorageKey.RefreshToken, refreshToken);

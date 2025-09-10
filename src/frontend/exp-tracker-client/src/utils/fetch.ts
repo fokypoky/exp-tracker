@@ -12,7 +12,7 @@ export type FetchFn = <TRequest, TResponse>(
 ) => Promise<AxiosResponse<TResponse>>;
 
 const instance = axios.create({
-	baseURL: 'https://localhost:7166',
+	baseURL: import.meta.env.VITE_BACKEND_URL,
 });
 
 export const fetchApi = <TResponse, TRequest>(

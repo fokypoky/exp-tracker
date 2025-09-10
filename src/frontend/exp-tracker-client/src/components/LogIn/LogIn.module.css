@@ -9,7 +9,7 @@
 .form {
 	width: 400px;
 
-	padding: var(--size-padding-32);
+	padding: var(--size-padding-24);
 
 	border: 1px rgb(210, 210, 210) solid;
 	border-radius: 0.25rem;

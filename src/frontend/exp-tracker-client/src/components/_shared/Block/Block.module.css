@@ -1,0 +1,8 @@
+.block {
+	background: white;
+	padding: 24px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-padding-16);
+}
