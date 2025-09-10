@@ -5,12 +5,18 @@ import { ComponentSize } from '@constants';
 type Props = {
 	children: React.ReactNode | React.ReactNode[];
 	title?: string;
+	actions?: React.ReactNode;
 };
 
-export const Block = ({ children, title }: Props) => {
+export const Block = ({ children, title, actions }: Props) => {
 	return (
 		<div className={styles.block}>
-			{title && <Label text={title} bold size={ComponentSize.l} />}
+			<div className={styles.header}>
+				{title && <Label text={title} bold size={ComponentSize.l} />}
+				{actions && (
+					<div className={styles.actions}>{actions}</div>
+				)}
+			</div>
 			{children}
 		</div>
 	);
