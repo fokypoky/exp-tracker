@@ -244,7 +244,7 @@ namespace ExpTracker.Core.Tests.AuthService
 			Assert.NotNull(result);
 			Assert.Null(result.Error);
 			Assert.NotNull(result.Data);
-			Assert.Equal(ResponseResult.Created, result.Result);
+			Assert.Equal(ResponseResult.Ok, result.Result);
 
 			_usersServiceMock.Verify(_ => _.UpdateRefreshTokenAsync(It.IsAny<User>(), It.IsAny<string>()), Times.Once);
 		}

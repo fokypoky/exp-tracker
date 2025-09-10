@@ -1,0 +1,31 @@
+.label {
+  font-family: var(--font-family);
+}
+
+.label__gray {
+  color: var(--gray-500);
+}
+
+.label__black {
+  color: black;
+}
+
+.label__bold {
+  font-weight: bold;
+}
+
+.label__size_s {
+  font-size: 0.75rem;
+}
+
+.label__size_m {
+  font-size: 1rem;
+}
+
+.label__size_l {
+  font-size: 1.25rem;
+}
+
+.label__size_xl {
+  font-size: 1.5rem;
+}

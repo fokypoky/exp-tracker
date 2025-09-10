@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,7 +29,9 @@ export const Page = ({ children, actions, protectedMode }: Props) => {
 	return (
 		<div className={className}>
 			{actions && <PageActions />}
-			{children}
+			<div className={styles.page__content}>
+				{children}
+			</div>
 		</div>
 	);
 };

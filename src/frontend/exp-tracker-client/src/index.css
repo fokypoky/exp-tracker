@@ -13,9 +13,16 @@ body {
 	--size-spacing-32: 1rem;
 	--size-spacing-16: 0.5rem;
 	--size-spacing-8: 0.25rem;
+	--size-spacing-4: 0.1rem;
 
 	/* padding */
-	--size-padding-32: 1rem;
+	--size-padding-24: 1rem;
 	--size-padding-16: 0.5rem;
 	--size-padding-8: 0.25rem;
+
+	/* colors	*/
+	--gray-500: #8f8f8f;
+
+	/* font	*/
+	--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }

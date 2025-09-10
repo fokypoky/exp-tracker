@@ -1,7 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  border-right: 1px rgb(227, 227, 227) solid;
+  border-right: 1px rgb(200, 200, 200) solid;
+  background: white;
   padding: 12px;
 }
 

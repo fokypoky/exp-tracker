@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 import type { JwtPayload } from '@types';
@@ -12,6 +12,16 @@ export const useAuth = () => {
 		localStorage.getItem(LocalStorageKey.RefreshToken),
 	);
 
+	useEffect(() => {
+		window.addEventListener('storage', () => {
+			const storageAccess = localStorage.getItem(LocalStorageKey.AccessToken);
+			const storageRefresh = localStorage.getItem(LocalStorageKey.RefreshToken);
+
+			storageAccess !== accessToken && setAccessToken(storageAccess);
+			storageRefresh !== refreshToken && setRefreshToken(storageRefresh);
+		});
+	}, []);
+
 	const setTokenPair = (access: string, refresh: string) => {
 		setAccessToken(access);
 		setRefreshToken(refresh);
@@ -23,7 +33,7 @@ export const useAuth = () => {
 	const clearTokenPair = () => {
 		localStorage.removeItem(LocalStorageKey.AccessToken);
 		localStorage.removeItem(LocalStorageKey.RefreshToken);
-	}
+	};
 
 	const isAuthorized = (): boolean => {
 		const tokensExists = !!accessToken && !!refreshToken;

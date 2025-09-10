@@ -28,6 +28,10 @@ public class UsersConfiguration : IEntityTypeConfiguration<User>
 	        .HasMaxLength(256)
 	        .IsRequired(false);
 
+        builder.Property(e => e.Registered)
+            .HasColumnName("registered")
+            .IsRequired();
+
         builder
             .HasMany(u => u.TransactionCategories)
             .WithOne(c => c.User);
