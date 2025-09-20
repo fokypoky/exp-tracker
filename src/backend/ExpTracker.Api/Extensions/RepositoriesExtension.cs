@@ -8,6 +8,7 @@ namespace ExpTracker.Api.Extensions
 		public static WebApplicationBuilder AddRepositories(this WebApplicationBuilder builder)
 		{
 			builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+			builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 
 			return builder;
 		}
