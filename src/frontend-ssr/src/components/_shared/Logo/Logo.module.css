@@ -1,0 +1,10 @@
+.logo {
+  display: flex;
+  gap: var(--size-spacing-16);
+  align-items: center;
+  justify-content: center;
+}
+
+.logo__text {
+  font-weight: bolder;
+}

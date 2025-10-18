@@ -1,0 +1,35 @@
+.footer {
+  border-top: 1px solid var(--line-color);
+  padding: var(--size-spacing-16);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: gray;
+
+  font-size: 0.875rem;
+}
+
+.footer a {
+  text-decoration: none;
+  color: gray;
+}
+
+.terms__container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-spacing-8)
+}
+
+.copyright {
+  width: 100%;
+}
+
+@media (max-width: 915px) {
+  .footer {
+    position: relative;
+    top: 40%;
+  }
+}

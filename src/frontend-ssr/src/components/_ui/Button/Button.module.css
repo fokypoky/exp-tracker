@@ -1,0 +1,20 @@
+.button {
+  all: unset;
+  cursor: pointer;
+  border-radius: 8px;
+  line-height: 1;
+  padding: 0.5rem 1.25rem;
+}
+
+.button__primary {
+  background-color: black;
+  color: white;
+}
+
+.button__secondary {
+
+}
+
+.button__primary:hover {
+  background-color: rgb(20, 20, 20);
+}
