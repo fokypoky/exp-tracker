@@ -1,0 +1,27 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-spacing-16);
+  border: 1px var(--line-color) solid;
+  padding: var(--size-spacing-32);
+  border-radius: 0.725rem;
+}
+
+.header {
+  font-weight: bold;
+  color: black;
+  text-align: left;
+  font-size: 1.15rem;
+}
+
+.content {
+  color: gray;
+}
+
+.head_icon {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  color: black;
+}

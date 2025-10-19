@@ -1,0 +1,31 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--size-spacing-32);
+  min-height: 40px;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--size-spacing-16)
+}
+
+.actions a {
+  text-decoration: none;
+  color: black;
+}
+
+@media (max-width: 915px) {
+  .actions {
+    visibility: hidden;
+    width: 0;
+  }
+}
