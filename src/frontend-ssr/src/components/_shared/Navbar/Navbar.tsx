@@ -1,24 +1,34 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { Button, Logo } from '@components';
-import { FEATURES_CONTAINER_ID } from "@constants";
+import { APP_ROUTES, FEATURES_CONTAINER_ID } from '@constants';
 
 import styles from './Navbar.module.css';
 
 export const Navbar = () => {
+  const path = usePathname();
+
+  const isRootPath = path === APP_ROUTES.base;
+  const isAuthPath = path === APP_ROUTES.login || path === APP_ROUTES.register;
+
   return (
     <nav className={styles.nav}>
       <Logo />
-      <div className={styles.actions}>
-        <Link href={`#${FEATURES_CONTAINER_ID}`}>Возможности</Link>
-        <Link href="">Цены</Link>
-        <Link href="">Поддержка</Link>
-      </div>
-      <Button>
-        <Link href="" className={styles.link}>Войти</Link>
-      </Button>
+      {isRootPath && (
+        <div className={styles.actions}>
+          <Link href={`#${FEATURES_CONTAINER_ID}`}>Возможности</Link>
+          <Link href="">Цены</Link>
+          <Link href="">Поддержка</Link>
+        </div>
+      )}
+      {!isAuthPath && (
+        <Button size="s">
+          <Link href={APP_ROUTES.login} className={styles.link}>Войти</Link>
+        </Button>
+      )}
     </nav>
   );
 };

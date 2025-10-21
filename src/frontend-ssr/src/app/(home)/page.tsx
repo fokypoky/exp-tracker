@@ -1,12 +1,12 @@
-import { Block } from './components';
-import { Features } from './components';
-import styles from './page.module.css';
+import { Page } from '@components';
+
+import { Block, Features } from './components';
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <Page>
       <Block />
       <Features />
-    </div>
+    </Page>
   );
 }

@@ -4,7 +4,10 @@
   --size-spacing-16: 0.5rem;
   --size-spacing-8: 0.25rem;
   --max-width-media: 915px;
-  --line-color: rgb(221, 221, 221);
+
+  /* colors */
+  --line-color: rgb(199, 199, 199);
+  --error-color: red;
 }
 
 html,
@@ -18,4 +21,9 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }

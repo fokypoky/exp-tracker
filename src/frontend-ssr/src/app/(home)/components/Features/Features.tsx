@@ -1,5 +1,5 @@
-import { Card, CoinIcon, GroupIcon, PlusIcon } from "@components";
-import { FEATURES_CONTAINER_ID } from "@constants";
+import { Card, CoinIcon, GroupIcon, PlusIcon } from '@components';
+import { FEATURES_CONTAINER_ID } from '@constants';
 
 import styles from './Features.module.css';
 

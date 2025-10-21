@@ -2,8 +2,12 @@
   all: unset;
   cursor: pointer;
   border-radius: 8px;
-  line-height: 1;
   padding: 0.5rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  --disabled-color: #484848;
 }
 
 .button__primary {
@@ -17,4 +21,37 @@
 
 .button__primary:hover {
   background-color: rgb(20, 20, 20);
+}
+
+.button__secondary:hover {
+
+}
+
+.button__primary_disabled {
+  background-color: var(--disabled-color);
+  cursor: not-allowed;
+}
+
+.button__primary_disabled:hover {
+  background-color: var(--disabled-color);
+}
+
+.button__secondary_disabled {
+
+}
+
+.button__secondary_disabled:hover {
+
+}
+
+.button__size_s {
+  min-height: 1rem;
+}
+
+.button__size_m {
+  min-height: 1.5rem;
+}
+
+.button__size_l {
+  min-height: 2.5rem;
 }

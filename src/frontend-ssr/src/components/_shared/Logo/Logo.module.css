@@ -3,8 +3,11 @@
   gap: var(--size-spacing-16);
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .logo__text {
   font-weight: bolder;
+  text-decoration: none;
+  color: black;
 }

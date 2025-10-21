@@ -23,7 +23,7 @@ export const Card = ({ children, header, className, headIcon }: Props) => {
           {header}
         </div>
       )}
-      <div>
+      <div className={styles.content}>
         {children}
       </div>
     </div>

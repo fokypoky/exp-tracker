@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import '../globals.css';
 
-import { Footer, Navbar } from '@components';
+import { Navbar } from '@components';
 
 import styles from './layout.module.css';
 
@@ -14,7 +14,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: 'ExpTracker'
+  title: 'ExpTracker',
 };
 
 export default function RootLayout({
@@ -27,7 +27,6 @@ export default function RootLayout({
       <body className={classNames(geistSans.className, styles['body__container'])}>
         <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );
