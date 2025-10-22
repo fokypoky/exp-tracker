@@ -3,3 +3,4 @@ export type LayoutProps = Readonly<{
 }>;
 
 export type ComponentSize = 's' | 'm' | 'l';
+export type ComponentPlacement = 'left' | 'top-left' | 'bottom-left' | 'top' | 'right' | 'top-right' | 'bottom-right' | 'bottom';

@@ -2,12 +2,13 @@
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { AuthRepository } from '@api';
 import { Button, Card, Input, Page } from '@components';
 import { APP_ROUTES } from '@constants';
-import { useFetch } from '@hooks';
+import { useFetch, useNotifier } from '@hooks';
 import { LoginFormType } from '@types';
 import { LogInSchema } from '@utils';
 
@@ -22,12 +23,16 @@ export default function LoginPage () {
     resolver: yupResolver(LogInSchema) as any, // TODO: временное решение
   });
 
-  const { data, loading, dispatch } = useFetch(AuthRepository.logIn);
+  const { error } = useNotifier();
+  const { data, loading, dispatch, error: dispatchError } = useFetch(AuthRepository.logIn);
 
   const onSubmit = (data: LoginFormType) => {
-    const { login, password } = data;
-    dispatch({ login, password });
+    dispatch(data);
   };
+
+  useEffect(() => {
+    dispatchError && error({ title: 'Произошла ошибка', message: dispatchError });
+  }, [dispatchError]);
 
   return (
     <Page>

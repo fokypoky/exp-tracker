@@ -2,3 +2,8 @@ export { DatabaseIcon } from './DatabaseIcon';
 export { PlusIcon } from './PlusIcon';
 export { CoinIcon } from './CoinIcon';
 export { GroupIcon } from './GroupIcon';
+export { CheckCircleIcon } from './CheckCircleIcon';
+export { ErrorIcon } from './ErrorIcon';
+export { CloseIcon } from './CloseIcon';
+export { WarningIcon } from './WarningIcon';
+export { InfoIcon } from './InfoIcon';

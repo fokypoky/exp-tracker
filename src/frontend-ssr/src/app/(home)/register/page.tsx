@@ -7,11 +7,11 @@ import { useForm } from 'react-hook-form';
 import { AuthRepository } from '@api';
 import { Button, Card, Input, Page } from '@components';
 import { APP_ROUTES } from '@constants';
+import { useFetch } from '@hooks';
 import { RegisterFormType } from '@types';
 import { RegisterSchema } from '@utils';
 
 import styles from './page.module.css';
-import { useFetch } from "@hooks";
 
 export default function RegisterPage () {
   const { control, handleSubmit } = useForm<RegisterFormType>({

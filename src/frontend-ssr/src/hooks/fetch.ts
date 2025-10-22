@@ -2,6 +2,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { useState } from 'react';
 
 import { ErrorResponse } from '@api';
+import { FAILED_FETCH_MSG } from '@constants';
 
 type FetchFn<TRequest, TResponse> = (request: TRequest) => Promise<AxiosResponse<TResponse>>;
 
@@ -21,14 +22,9 @@ export const useFetch = <TRequest, TResponse>(fetchFn: FetchFn<TRequest, TRespon
       setData(response.data);
       setLoading(false);
     } catch (e) {
-      if (e instanceof AxiosError) {
-        const error = e.response!.data as ErrorResponse;
+      const error = e as AxiosError<ErrorResponse>;
 
-        setError(error.message);
-      } else {
-        setError(JSON.stringify(e));
-      }
-
+      setError(error.response?.data.message || FAILED_FETCH_MSG);
       setData(null);
       setLoading(false);
     }

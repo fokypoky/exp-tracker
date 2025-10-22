@@ -1,0 +1,11 @@
+.container {
+  position: fixed;
+  width: 450px;
+  height: 120px;
+}
+
+@media (max-width: 915px) {
+  .container {
+    width: 100%;
+  }
+}
