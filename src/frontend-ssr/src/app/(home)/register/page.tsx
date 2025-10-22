@@ -4,12 +4,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
+import { AuthRepository } from '@api';
 import { Button, Card, Input, Page } from '@components';
 import { APP_ROUTES } from '@constants';
 import { RegisterFormType } from '@types';
 import { RegisterSchema } from '@utils';
 
 import styles from './page.module.css';
+import { useFetch } from "@hooks";
 
 export default function RegisterPage () {
   const { control, handleSubmit } = useForm<RegisterFormType>({
@@ -21,8 +23,11 @@ export default function RegisterPage () {
     resolver: yupResolver(RegisterSchema) as any,
   });
 
-  const onSubmit = (data: RegisterFormType) => {
+  // TODO: implement
+  const { data, loading, dispatch, error } = useFetch(AuthRepository.register);
 
+  const onSubmit = (data: RegisterFormType) => {
+    dispatch(data);
   };
 
   return (

@@ -4,13 +4,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
+import { AuthRepository } from '@api';
 import { Button, Card, Input, Page } from '@components';
 import { APP_ROUTES } from '@constants';
+import { useFetch } from '@hooks';
 import { LoginFormType } from '@types';
 import { LogInSchema } from '@utils';
 
 import styles from './page.module.css';
-
 
 export default function LoginPage () {
   const { control, handleSubmit } = useForm<LoginFormType>({
@@ -21,7 +22,11 @@ export default function LoginPage () {
     resolver: yupResolver(LogInSchema) as any, // TODO: временное решение
   });
 
+  const { data, loading, dispatch } = useFetch(AuthRepository.logIn);
+
   const onSubmit = (data: LoginFormType) => {
+    const { login, password } = data;
+    dispatch({ login, password });
   };
 
   return (
