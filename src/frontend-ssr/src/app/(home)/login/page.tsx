@@ -21,12 +21,7 @@ export default function LoginPage () {
     resolver: yupResolver(LogInSchema) as any, // TODO: временное решение
   });
 
-  const eslintTest = {
-    a1: '123',
-  };
-
   const onSubmit = (data: LoginFormType) => {
-
   };
 
   return (

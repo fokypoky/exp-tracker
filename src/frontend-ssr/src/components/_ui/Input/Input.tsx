@@ -25,18 +25,16 @@ export const Input = (props: Props) => {
   return controlled ? <ControlledInput {...props} /> : <UnControlledInput />;
 };
 
-const ControlledInput = (props: Props) => {
-  const { error } = props.control!.getFieldState(props.name!);
+const ControlledInput = (props: Props) => (
+  <Controller
+    name={props.name!}
+    control={props.control}
+    render={({ field, fieldState }) => {
+      const className = classNames(styles.input, {
+        [styles.input__error]: !!fieldState.error,
+      });
 
-  const className = classNames(styles.input, {
-    [styles.input__error]: !!error,
-  });
-
-  return (
-    <Controller
-      name={props.name!}
-      control={props.control}
-      render={({ field }) => (
+      return (
         <div className={styles.container}>
           {props.label && (
             <Label text={props.label} />
@@ -51,14 +49,14 @@ const ControlledInput = (props: Props) => {
               props.onChange && props.onChange(e.target.value);
             }}
           />
-          {!!error && (
-            <span className={styles.error}>{error.message}</span>
+          {!!fieldState.error && (
+            <span className={styles.error}>{fieldState.error.message}</span>
           )}
         </div>
-      )}
-    />
-  );
-};
+      );
+    }}
+  />
+);
 
 const UnControlledInput = () => {
   return (
