@@ -10,6 +10,7 @@ type Props = {
   title: string;
   message: string | React.ReactNode;
   index: number;
+  totalCount: number;
 }
 
 const icons: Record<NotificationType, React.ReactNode> = {
@@ -19,13 +20,14 @@ const icons: Record<NotificationType, React.ReactNode> = {
   ['error']: <ErrorIcon />,
 };
 
-export const NotificationCard = ({ id, type, title, message, index }: Props) => {
+export const NotificationCard = ({ id, type, title, message, index, totalCount }: Props) => {
   const { remove } = useNotifier();
+  const offset = (totalCount - index - 1) * 8;
 
   const onCloseClick = () => remove(id);
 
   return (
-    <div style={{ zIndex: 100 + index }} className={styles.card}>
+    <div style={{ zIndex: 100 + index, transform: `translateY(-${offset})` }} className={styles.card}>
       <div className={styles.header}>
         {icons[type]}
         <span className={styles.header__text}>{title}</span>

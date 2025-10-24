@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { AuthRepository } from '@api';
 import { Button, Card, Input, Page } from '@components';
 import { APP_ROUTES } from '@constants';
-import { useFetch } from '@hooks';
+import { useFetch, useNotifier } from '@hooks';
 import { RegisterFormType } from '@types';
 import { RegisterSchema } from '@utils';
 
@@ -23,9 +23,10 @@ export default function RegisterPage () {
     resolver: yupResolver(RegisterSchema) as any,
   });
 
+  const { error: notifyError } = useNotifier();
+
   // TODO: implement
   const { data, loading, dispatch, error } = useFetch(AuthRepository.register);
-
   const onSubmit = (data: RegisterFormType) => {
     dispatch(data);
   };
