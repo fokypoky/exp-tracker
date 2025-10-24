@@ -1,34 +1,24 @@
 'use client';
 
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 
 import { useNotifier } from '@hooks';
 import { ComponentPlacement } from '@types';
 
 import { NotificationCard } from './components/NotificationCard';
 import styles from './Notification.module.css';
-import { Position } from './Notification.types';
-import { calculatePosition } from './Notification.utils';
-
-
 
 type Props = {
   placement: ComponentPlacement;
 }
 
 export const Notification = ({ placement }: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
-
   const { notifications } = useNotifier();
 
-  useLayoutEffect(() => {
-    setPosition(calculatePosition(placement, ref.current));
-  }, [placement]);
+  const className = classNames(styles.container, styles[`container_${placement}`]);
 
   return notifications.length > 0 ? (
-    <div className={styles.container} ref={ref} style={{ top: position.top, left: position.left }}>
+    <div className={className}>
       {notifications.map((notification, index) => (
         <NotificationCard
           key={notification.id}

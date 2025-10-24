@@ -1,4 +1,6 @@
 .card {
+  position: absolute;
+
   height: 100%;
   width: 100%;
 
@@ -7,9 +9,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--size-spacing-8);
-
-  border: 1px var(--line-color) solid;
+  
   border-radius: 8px;
+  overflow: hidden;
+
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 }
 
 .header {

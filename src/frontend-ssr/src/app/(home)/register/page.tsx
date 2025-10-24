@@ -59,7 +59,7 @@ export default function RegisterPage () {
               type="password"
             />
             <Button type="submit">
-              Зарегестрироваться
+              Зарегистрироваться
             </Button>
             <Link href={APP_ROUTES.login} className={styles.login_link}>
               Уже есть аккаунт? Войдите
