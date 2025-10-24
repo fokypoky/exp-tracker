@@ -56,7 +56,11 @@ export default function LoginPage () {
               type="password"
             />
             <Link href="">Забыли пароль?</Link>
-            <Button type="submit">
+            <Button
+              type="submit"
+              spinner={loading}
+              disabled={loading}
+            >
               Войти
             </Button>
             <Link href={APP_ROUTES.register} className={styles.register_link}>

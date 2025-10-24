@@ -2,6 +2,7 @@
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { AuthRepository } from '@api';
@@ -27,9 +28,14 @@ export default function RegisterPage () {
 
   // TODO: implement
   const { data, loading, dispatch, error } = useFetch(AuthRepository.register);
+
   const onSubmit = (data: RegisterFormType) => {
     dispatch(data);
   };
+
+  useEffect(() => {
+    error && notifyError({ title: '', message: error });
+  }, [error]);
 
   return (
     <Page>
@@ -59,7 +65,11 @@ export default function RegisterPage () {
               placeholder="Введите пароль еще раз"
               type="password"
             />
-            <Button type="submit">
+            <Button
+              type="submit"
+              spinner={loading}
+              disabled={loading}
+            >
               Зарегистрироваться
             </Button>
             <Link href={APP_ROUTES.login} className={styles.login_link}>

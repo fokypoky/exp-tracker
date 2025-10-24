@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import { ButtonHTMLAttributes, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 
+import { Spinner } from '@components';
 import { ComponentSize } from '@types';
 
 import styles from './Button.module.css';
@@ -11,6 +12,7 @@ type Props = {
   size?: ComponentSize;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
+  spinner?: boolean;
 
   onClick?(event: MouseEvent<HTMLButtonElement>): void;
 }
@@ -20,7 +22,7 @@ export enum ButtonColor {
   secondary = 'secondary',
 }
 
-export const Button = ({ children, color = ButtonColor.primary, size = 'm', disabled, onClick, type }: Props) => {
+export const Button = ({ children, color = ButtonColor.primary, size = 'm', disabled, spinner, type, onClick }: Props) => {
   const className = classNames(styles.button, styles[`button__size_${size}`], {
     [styles['button__primary']]: color === ButtonColor.primary,
     [styles['button__secondary']]: color === ButtonColor.secondary,
@@ -36,6 +38,9 @@ export const Button = ({ children, color = ButtonColor.primary, size = 'm', disa
       disabled={disabled}
     >
       {children}
+      {spinner && (
+        <Spinner size={'s'} />
+      )}
     </button>
   );
 };
