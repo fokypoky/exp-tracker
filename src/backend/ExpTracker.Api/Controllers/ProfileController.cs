@@ -1,3 +1,4 @@
+using ExpTracker.Api.Extensions;
 using ExpTracker.Api.Mapping.ClaimsParser;
 using ExpTracker.Api.Mapping.ResponseMapper;
 using ExpTracker.Core.Interfaces;
@@ -19,13 +20,13 @@ namespace ExpTracker.Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IResult> GetProfile()
+        public async Task<IActionResult> GetProfile()
         {
             var user = ClaimsParser.GetUser(this.User);
             
             var response = await _profileService.GetAsync(user);
             
-            return ResponseMapper.MapResponse(response);
+            return this.MapResponse(response);
         }
     }
 }
