@@ -1,2 +1,2 @@
-export { Providers } from './providers';
+export { Providers, ProtectedProviders } from './providers';
 export { NotifierContext } from './notifier';

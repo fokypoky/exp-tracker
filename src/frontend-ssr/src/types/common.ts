@@ -4,3 +4,9 @@ export type LayoutProps = Readonly<{
 
 export type ComponentSize = 's' | 'm' | 'l';
 export type ComponentPlacement = 'left' | 'top-left' | 'bottom-left' | 'top' | 'right' | 'top-right' | 'bottom-right' | 'bottom';
+
+export type User = {
+  login: string;
+  registered: Date;
+  guid: string;
+};
