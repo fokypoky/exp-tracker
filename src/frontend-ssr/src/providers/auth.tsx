@@ -1,17 +1,22 @@
-'use client'
+'use client';
 
-import {createContext, useEffect, useMemo, useState} from "react";
-import {User} from "@types";
-import {ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY} from "@constants";
+import { useRouter } from 'next/navigation';
+import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
+
+import { ACCESS_TOKEN_KEY, APP_ROUTES, REFRESH_TOKEN_KEY } from '@constants';
+import { User } from '@types';
+import { parseJwtPayload, tokenExpired } from '@utils';
 
 export type AuthContextType = {
-  user: User | null;
+  // user: User | null;
   authorized: boolean;
+  setTokenPair(accessToken: string, refreshToken: string): void;
 }
 
 export const AuthContext = createContext<AuthContextType>({
-  user: null,
+  // user: null,
   authorized: false,
+  setTokenPair: (_, __) => {},
 });
 
 type Props = {
@@ -19,28 +24,36 @@ type Props = {
 }
 
 export const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
 
-  const [accessToken, setAccessToken] = useState<string | null>(
-    localStorage.getItem(ACCESS_TOKEN_KEY)
-  );
-  const [refreshToken, setRefreshToken] = useState<string | null>(
-    localStorage.getItem(REFRESH_TOKEN_KEY)
-  );
+  // const [user, setUser] = useState<User | null>(null);
 
-
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [refreshToken, setRefreshToken] = useState<string | null>(null);
+  const [init, setInit] = useState<boolean>(false);
 
   const authorized = useMemo(() => {
+    if (!init) return true;
+
     if (!accessToken || !refreshToken) return false;
 
-    return true; // TODO: валидация refresh token
-  }, [accessToken, refreshToken]);
+    const payload = parseJwtPayload(refreshToken);
+    
+    if (!payload) return false;
+    if (tokenExpired(payload)) return false;
+
+    return true;
+  }, [accessToken, refreshToken, init]);
+
+  const setTokenPair = useCallback((accessToken: string, refreshToken: string) => {
+    setAccessToken(accessToken);
+    setRefreshToken(refreshToken);
+  }, []);
 
   useEffect(() => {
+    setAccessToken(localStorage.getItem(ACCESS_TOKEN_KEY));
+    setRefreshToken(localStorage.getItem(REFRESH_TOKEN_KEY));
 
-  }, [authorized]);
-
-  useEffect(() => {
     const handle = (event: StorageEvent) => {
       const { key } = event;
 
@@ -50,12 +63,20 @@ export const AuthProvider = ({ children }: Props) => {
 
     window.addEventListener('storage', handle);
 
+    setInit(true);
+
     return () => window.removeEventListener('storage', handle);
   }, []);
 
+  useEffect(() => {
+    if (!router) return;
+
+    !authorized && router.push(APP_ROUTES.login);
+  }, [authorized, router]);
+
   return (
-    <AuthContext.Provider value={{ user, authorized }}>
+    <AuthContext.Provider value={{ authorized, setTokenPair }}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};

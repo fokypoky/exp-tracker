@@ -26,7 +26,7 @@ export const Navbar = () => {
       )}
       {!isAuthPath && (
         <Button size="s">
-          <Link href={APP_ROUTES.login} className={styles.link}>Войти</Link>
+          <Link href={APP_ROUTES.login} className={styles.link}>Начать</Link>
         </Button>
       )}
     </nav>

@@ -2,6 +2,7 @@
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -10,11 +11,13 @@ import { Button, Card, Input, Page } from '@components';
 import { APP_ROUTES } from '@constants';
 import { useFetch, useNotifier } from '@hooks';
 import { RegisterFormType } from '@types';
-import { RegisterSchema } from '@utils';
+import { RegisterSchema, setStorageTokenPair } from '@utils';
 
 import styles from './page.module.css';
 
 export default function RegisterPage () {
+  const router = useRouter();
+
   const { control, handleSubmit } = useForm<RegisterFormType>({
     defaultValues: {
       login: '',
@@ -25,17 +28,21 @@ export default function RegisterPage () {
   });
 
   const { error: notifyError } = useNotifier();
-
-  // TODO: implement
   const { data, loading, dispatch, error } = useFetch(AuthRepository.register);
 
-  const onSubmit = (data: RegisterFormType) => {
-    dispatch(data);
-  };
+  const onSubmit = (data: RegisterFormType) => dispatch(data);
 
   useEffect(() => {
     error && notifyError({ title: '', message: error });
-  }, [error]);
+  }, [error, notifyError]);
+
+  useEffect(() => {
+    if (!data) return;
+
+    setStorageTokenPair(data.accessToken, data.refreshToken);
+    
+    router.push(APP_ROUTES.profile);
+  }, [data, router]);
 
   return (
     <Page>

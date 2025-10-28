@@ -2,8 +2,8 @@
 
 import React from 'react';
 
+import { AuthProvider } from './auth';
 import { NotifierProvider } from './notifier';
-import {AuthProvider} from "./auth";
 
 type Props = {
   children: React.ReactNode;
@@ -24,5 +24,5 @@ export const ProtectedProviders = ({ children }: Props) => {
         {children}
       </Providers>
     </AuthProvider>
-  )
-}
+  );
+};

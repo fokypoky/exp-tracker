@@ -6,6 +6,7 @@ export enum APP_ROUTES {
   base = '/',
   login = '/login',
   register = '/register',
+  profile = '/me',
 }
 
 // containers
