@@ -1,9 +1,14 @@
+export { CategoryIcon } from './CategoryIcon';
+export { CreditCardIcon } from './CreditCardIcon';
+export { DashboardIcon } from './DashboardIcon';
 export { DatabaseIcon } from './DatabaseIcon';
+export { GroupIcon } from './GroupIcon';
+export { PeopleGroupIcon } from './PeopleGroupIcon';
 export { PlusIcon } from './PlusIcon';
 export { CoinIcon } from './CoinIcon';
-export { GroupIcon } from './GroupIcon';
 export { CheckCircleIcon } from './CheckCircleIcon';
 export { ErrorIcon } from './ErrorIcon';
 export { CloseIcon } from './CloseIcon';
+export { WalletIcon } from './WalletIcon';
 export { WarningIcon } from './WarningIcon';
 export { InfoIcon } from './InfoIcon';

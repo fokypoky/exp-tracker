@@ -1,0 +1,20 @@
+.menu_item {
+  min-height: 35px;
+
+  padding: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--size-spacing-16);
+
+  border-radius: 8px;
+
+  color: #757575;
+  font-weight: 600;
+}
+
+.menu_item__active {
+  background: black;
+  color: white;
+}

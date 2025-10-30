@@ -7,6 +7,9 @@ export enum APP_ROUTES {
   login = '/login',
   register = '/register',
   profile = '/me',
+  transactions = '/transactions',
+  categories = '/categories',
+  groups = '/groups',
 }
 
 // containers

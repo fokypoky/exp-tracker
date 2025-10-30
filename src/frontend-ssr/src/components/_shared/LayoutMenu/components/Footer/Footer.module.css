@@ -1,0 +1,11 @@
+.footer {
+  display: flex;
+  gap: var(--size-spacing-16);
+
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--size-spacing-16);
+
+  border-top: 1px #e6e6e6 solid;
+}

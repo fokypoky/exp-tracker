@@ -1,4 +1,4 @@
-import { Card, CoinIcon, GroupIcon, PlusIcon } from '@components';
+import { Card, CoinIcon, PeopleGroupIcon, PlusIcon } from '@components';
 import { FEATURES_CONTAINER_ID } from '@constants';
 
 import styles from './Features.module.css';
@@ -36,7 +36,7 @@ export const Features = () => {
         <Card
           header="Группы"
           className={styles.card}
-          headIcon={<GroupIcon />}
+          headIcon={<PeopleGroupIcon />}
         >
           <span>
             Объединяйтесь с другими пользователями в группы для эффективного управления совместными финансами
