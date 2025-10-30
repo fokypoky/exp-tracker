@@ -2,37 +2,53 @@
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { AuthRepository } from '@api';
 import { Button, Card, Input, Page } from '@components';
-import { APP_ROUTES } from '@constants';
+import { ACCESS_TOKEN_KEY, APP_ROUTES, REFRESH_TOKEN_KEY } from '@constants';
 import { useFetch, useNotifier } from '@hooks';
 import { LoginFormType } from '@types';
-import { LogInSchema } from '@utils';
+import { LogInSchema, setStorageTokenPair } from '@utils';
 
 import styles from './page.module.css';
 
 export default function LoginPage () {
+  const router = useRouter();
+
   const { control, handleSubmit } = useForm<LoginFormType>({
     defaultValues: {
       login: '',
       password: '',
     },
-    resolver: yupResolver(LogInSchema) as any, // TODO: временное решение
+    resolver: yupResolver(LogInSchema) as any,
   });
 
-  const { error } = useNotifier();
-  const { data, loading, dispatch, error: dispatchError } = useFetch(AuthRepository.logIn);
+  const { error: notifyError } = useNotifier();
+  const { data, loading, dispatch, error } = useFetch(AuthRepository.logIn);
 
-  const onSubmit = (data: LoginFormType) => {
-    dispatch(data);
-  };
+  const onSubmit = (data: LoginFormType) => dispatch(data);
 
   useEffect(() => {
-    dispatchError && error({ title: 'Произошла ошибка', message: dispatchError });
-  }, [dispatchError]);
+    error && notifyError({ title: '', message: error });
+  }, [error, notifyError]);
+
+  useEffect(() => {
+    if (!data || !router) return;
+
+    setStorageTokenPair(data.accessToken, data.refreshToken);
+
+    router.push(APP_ROUTES.profile);
+  }, [data, router]);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+
+    if (accessToken && refreshToken) router.push(APP_ROUTES.profile);
+  }, []);
 
   return (
     <Page>

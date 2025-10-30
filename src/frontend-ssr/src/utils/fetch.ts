@@ -1,6 +1,9 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse, HttpStatusCode } from 'axios';
 
-import { ACCESS_TOKEN_KEY } from '@constants';
+import { RefreshTokenRequest, TokenPair } from '@api';
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@constants';
+
+import { clearStorageTokenPair, setStorageTokenPair } from './localStorage';
 
 type RequestMethod = 'GET' | 'POST';
 
@@ -17,16 +20,45 @@ export const fetchApi = async <TRequest, TResponse>(
   return instance<TResponse>(url, { method, data: body, headers });
 };
 
-export const authFetchApi = <TRequest, TResponse>(
+export const authFetchApi = async <TRequest, TResponse>(
   url: string,
   method: RequestMethod,
   body?: TRequest,
   headers?: Record<string, string>,
-): Promise<AxiosResponse<TResponse>> => {
+  errorCallback?: () => void,
+): Promise<AxiosResponse<TResponse> | null> => {
   const newHeaders: Record<string, string> = {
     'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN_KEY)}`,
     ...(headers || {}),
   };
 
-  return fetchApi<TRequest, TResponse>(url, method, body, newHeaders);
+  try {
+    const result = await fetchApi<TRequest, TResponse>(url, method, body, headers);
+    return result;
+  } catch (e) {
+    const axiosError = e as AxiosError;
+
+    if (axiosError.status === HttpStatusCode.Unauthorized) {
+      try {
+        const refreshedTokenPair = await fetchApi<RefreshTokenRequest, TokenPair>(
+          '/auth/refresh',
+          'POST',
+          { refreshToken: localStorage.getItem(REFRESH_TOKEN_KEY) || '' },
+        );
+        const { accessToken, refreshToken } = refreshedTokenPair.data;
+
+        setStorageTokenPair(accessToken, refreshToken);
+
+        const refreshedHeaders: Record<string, string> = { ...headers, 'Authorization': `Bearer ${accessToken}` };
+
+        return fetchApi<TRequest, TResponse>(url, method, body, refreshedHeaders); 
+      } catch (e) {
+        console.error(e);
+        clearStorageTokenPair();
+        return null;
+      }
+    }
+
+    return null;
+  }
 };

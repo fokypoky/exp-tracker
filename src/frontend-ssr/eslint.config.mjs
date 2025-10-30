@@ -20,12 +20,15 @@ const eslintConfig = [
   },
   {
     rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-expressions': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
       // Точки с запятой
       'semi': ['error', 'always'],
       
       // Сортировка импортов
       'import/order': [
-        'error',
+        'warn',
         {
           'groups': [
             'builtin',

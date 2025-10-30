@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 
 import { AuthRepository } from '@api';
 import { Button, Card, Input, Page } from '@components';
-import { APP_ROUTES } from '@constants';
+import { ACCESS_TOKEN_KEY, APP_ROUTES, REFRESH_TOKEN_KEY } from '@constants';
 import { useFetch, useNotifier } from '@hooks';
 import { RegisterFormType } from '@types';
 import { RegisterSchema, setStorageTokenPair } from '@utils';
@@ -43,6 +43,13 @@ export default function RegisterPage () {
     
     router.push(APP_ROUTES.profile);
   }, [data, router]);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
+    const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+
+    if (accessToken && refreshToken) router.push(APP_ROUTES.profile);
+  }, []);
 
   return (
     <Page>

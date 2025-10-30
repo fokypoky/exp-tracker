@@ -7,6 +7,6 @@ export type ComponentPlacement = 'left' | 'top-left' | 'bottom-left' | 'top' | '
 
 export type User = {
   login: string;
-  registered: Date;
+  // registered: Date;
   guid: string;
 };
