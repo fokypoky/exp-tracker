@@ -8,13 +8,16 @@ import { User } from '@types';
 import { parseJwtPayload, tokenExpired } from '@utils';
 
 export type AuthContextType = {
-  // user: User | null;
+  user: User;
   authorized: boolean;
   setTokenPair(accessToken: string, refreshToken: string): void;
 }
 
 export const AuthContext = createContext<AuthContextType>({
-  // user: null,
+  user: {
+    login: '',
+    guid: '',
+  },
   authorized: false,
   setTokenPair: (_, __) => {},
 });
@@ -26,7 +29,7 @@ type Props = {
 export const AuthProvider = ({ children }: Props) => {
   const router = useRouter();
 
-  // const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User>({ login: '', guid: '' });
 
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [refreshToken, setRefreshToken] = useState<string | null>(null);
@@ -44,6 +47,14 @@ export const AuthProvider = ({ children }: Props) => {
 
     return true;
   }, [accessToken, refreshToken, init]);
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    const { login, guid } = parseJwtPayload(accessToken)!;
+
+    setUser({ login, guid });
+  }, [accessToken]);
 
   const setTokenPair = useCallback((accessToken: string, refreshToken: string) => {
     setAccessToken(accessToken);
@@ -75,7 +86,7 @@ export const AuthProvider = ({ children }: Props) => {
   }, [authorized, router]);
 
   return (
-    <AuthContext.Provider value={{ authorized, setTokenPair }}>
+    <AuthContext.Provider value={{ user, authorized, setTokenPair }}>
       {children}
     </AuthContext.Provider>
   );
