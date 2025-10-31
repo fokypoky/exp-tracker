@@ -16,7 +16,7 @@ type Props = {
 
 export const MenuItem = ({ link, text }: Props) => {
   const path = usePathname();
-  const active = link === APP_ROUTES.profile ? path.endsWith(link) : path.includes(link);
+  const active = link === APP_ROUTES.overview ? path.endsWith(link) : path.includes(link);
 
   const className = classNames(styles['menu_item'], {
     [styles['menu_item__active']]: active,

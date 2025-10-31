@@ -25,7 +25,7 @@ export default function RootLayout({ children }: Readonly<{children: React.React
       <body className={classNames(geistSans.className, styles.body)}>
         <ProtectedProviders>
           <div className={styles.nav}>
-            <Logo url={APP_ROUTES.profile} />
+            <Logo url={APP_ROUTES.overview} />
           </div>
           <div className={styles['body__container']}>
             <LayoutMenu />

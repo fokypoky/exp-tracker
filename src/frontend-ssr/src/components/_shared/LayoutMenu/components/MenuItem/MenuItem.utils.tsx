@@ -5,7 +5,7 @@ export const getRouteIcon = (link: string, active: boolean): React.ReactNode  =>
   const color = active ? 'white' : '#757575';
 
   switch (link) {
-    case APP_ROUTES.profile:
+    case APP_ROUTES.overview:
       return <DashboardIcon color={color} />;
     case APP_ROUTES.transactions:
       return <CreditCardIcon color={color} />;

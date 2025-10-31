@@ -6,7 +6,7 @@ export enum APP_ROUTES {
   base = '/',
   login = '/login',
   register = '/register',
-  profile = '/me',
+  overview = '/me',
   transactions = '/transactions',
   categories = '/categories',
   groups = '/groups',

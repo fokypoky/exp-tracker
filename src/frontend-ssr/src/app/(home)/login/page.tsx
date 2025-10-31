@@ -40,14 +40,14 @@ export default function LoginPage () {
 
     setStorageTokenPair(data.accessToken, data.refreshToken);
 
-    router.push(APP_ROUTES.profile);
+    router.push(APP_ROUTES.overview);
   }, [data, router]);
 
   useEffect(() => {
     const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
 
-    if (accessToken && refreshToken) router.push(APP_ROUTES.profile);
+    if (accessToken && refreshToken) router.push(APP_ROUTES.overview);
   }, []);
 
   return (

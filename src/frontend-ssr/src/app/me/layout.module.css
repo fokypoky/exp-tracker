@@ -19,5 +19,7 @@
 
 .body__container {
   height: 100%;
-  width: fit-content;
+  width: 100%;
+
+  display: flex;
 }
