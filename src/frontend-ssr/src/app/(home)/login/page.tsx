@@ -33,7 +33,7 @@ export default function LoginPage () {
 
   useEffect(() => {
     error && notifyError({ title: '', message: error });
-  }, [error, notifyError]);
+  }, [error]);
 
   useEffect(() => {
     if (!data || !router) return;

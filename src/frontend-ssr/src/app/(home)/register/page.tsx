@@ -34,7 +34,7 @@ export default function RegisterPage () {
 
   useEffect(() => {
     error && notifyError({ title: '', message: error });
-  }, [error, notifyError]);
+  }, [error]);
 
   useEffect(() => {
     if (!data) return;
