@@ -28,7 +28,9 @@ export default function RootLayout({ children }: Readonly<{children: React.React
             <Logo url={APP_ROUTES.overview} />
           </div>
           <div className={styles['body__container']}>
-            <LayoutMenu />
+            <div className={styles.menu}>
+              <LayoutMenu />
+            </div>
             {children}
           </div>
         </ProtectedProviders>

@@ -5,3 +5,4 @@ export { Card } from './Card/Card';
 export { Footer } from './Footer/Footer';
 export { Page } from './Page/Page';
 export { LayoutMenu } from './LayoutMenu/LayoutMenu';
+export { Loading } from './Loading/Loading';
