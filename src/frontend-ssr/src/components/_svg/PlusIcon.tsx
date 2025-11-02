@@ -1,10 +1,18 @@
-export const PlusIcon = () => {
+import { SIZES_MAPPING } from '@constants';
+import { ComponentSize } from '@types';
+
+type Props = {
+  size?: ComponentSize;
+  fill?: string;
+}
+
+export const PlusIcon = ({ size = 'm', fill = 'currentColor' }: Props) => {
   return (
     <svg
-      fill="currentColor"
-      height="28"
+      fill={fill}
+      height={SIZES_MAPPING[size]}
       viewBox="0 0 256 256"
-      width="28"
+      width={SIZES_MAPPING[size]}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path 

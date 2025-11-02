@@ -1,0 +1,19 @@
+.page_header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-spacing-16);
+}
+
+.page_header__title {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: var(--text-primary);
+}
+
+.page_header__subtitle {
+  color: var(--text-secondary);
+}

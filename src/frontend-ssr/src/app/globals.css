@@ -8,6 +8,9 @@
   /* colors */
   --line-color: rgb(199, 199, 199);
   --error-color: red;
+
+  --text-secondary: #929292;
+  --text-primary: #252525;
 }
 
 html,

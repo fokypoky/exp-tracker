@@ -12,6 +12,13 @@
   --disabled-color: #484848;
 }
 
+.button svg {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
 .button__primary {
   background-color: black;
   color: white;

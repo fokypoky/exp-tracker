@@ -4,5 +4,6 @@ export { InfoField } from './InfoField/InfoField';
 export { Card } from './Card/Card';
 export { Footer } from './Footer/Footer';
 export { Page } from './Page/Page';
+export { PageHeader } from './PageHeader/PageHeader';
 export { LayoutMenu } from './LayoutMenu/LayoutMenu';
 export { Loading } from './Loading/Loading';

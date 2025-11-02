@@ -29,6 +29,6 @@
 }
 
 .user_info {
-  color: #252525;
+  color: var(--text-primary);
   font-size: 0.875rem;
 }

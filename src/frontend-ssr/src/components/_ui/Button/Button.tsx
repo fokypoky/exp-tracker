@@ -11,6 +11,7 @@ type Props = {
   color?: ButtonColor;
   size?: ComponentSize;
   type?: 'button' | 'submit' | 'reset';
+  icon?: React.ReactNode;
   disabled?: boolean;
   spinner?: boolean;
 
@@ -22,7 +23,16 @@ export enum ButtonColor {
   secondary = 'secondary',
 }
 
-export const Button = ({ children, color = ButtonColor.primary, size = 'm', disabled, spinner, type, onClick }: Props) => {
+export const Button = ({
+  children,
+  color = ButtonColor.primary,
+  size = 'm',
+  icon,
+  disabled,
+  spinner,
+  type,
+  onClick,
+}: Props) => {
   const className = classNames(styles.button, styles[`button__size_${size}`], {
     [styles['button__primary']]: color === ButtonColor.primary,
     [styles['button__secondary']]: color === ButtonColor.secondary,
@@ -37,6 +47,7 @@ export const Button = ({ children, color = ButtonColor.primary, size = 'm', disa
       type={type}
       disabled={disabled}
     >
+      {icon && <div>{icon}</div>}
       {children}
       {spinner && (
         <Spinner size={'s'} />
