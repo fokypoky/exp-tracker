@@ -7,4 +7,6 @@
   gap: var(--size-spacing-16);
 
   padding: var(--size-spacing-24);
+
+  overflow-y: auto;
 }

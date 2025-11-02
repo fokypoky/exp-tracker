@@ -2,6 +2,8 @@
 
 import { Page, PageHeader } from '@components';
 
+import { CategoriesTable } from './_components';
+
 export default function CategoriesPage() {
   return (
     <Page
@@ -13,7 +15,7 @@ export default function CategoriesPage() {
         />
       }
     >
-      <></>
+      <CategoriesTable />
     </Page>
   );
 }

@@ -26,7 +26,7 @@ export const authFetchApi = async <TRequest, TResponse>(
   body?: TRequest,
   headers?: Record<string, string>,
   errorCallback?: () => void,
-): Promise<AxiosResponse<TResponse> | null> => {
+): Promise<AxiosResponse<TResponse>> => {
   const newHeaders: Record<string, string> = {
     'Authorization': `Bearer ${localStorage.getItem(ACCESS_TOKEN_KEY)}`,
     ...(headers || {}),
@@ -55,10 +55,10 @@ export const authFetchApi = async <TRequest, TResponse>(
       } catch (e) {
         console.error(e);
         clearStorageTokenPair();
-        return null;
+        throw e;
       }
     }
 
-    return null;
+    throw e;
   }
 };

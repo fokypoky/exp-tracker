@@ -17,9 +17,19 @@ export type ErrorResponse = {
   message: string;
 }
 
+export type GetCategoriesRequest = {
+  limit: number;
+  offset: number;
+}
+
 export type JwtPayload = {
   login: string;
   guid: string;
   exp: number;
   iss: string;
+}
+
+export type TransactionCategory = {
+  guid: string;
+  name: string;
 }
