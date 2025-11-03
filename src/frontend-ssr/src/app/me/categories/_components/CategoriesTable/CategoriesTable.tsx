@@ -39,11 +39,7 @@ export const CategoriesTable = () => {
   useEffect(() => {
     dispatch({ limit: paginatedState.limit, offset: paginatedState.offset });
   }, [paginatedState]);
-
-  useEffect(() => {
-    console.log('*  NEW ROWS', rows);
-  }, [rows]);
-
+  
   return (
     <div className={styles.table}>
       <Table

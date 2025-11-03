@@ -13,7 +13,11 @@ export const Table = ({ headers, rows }: Props) => {
       <thead>
         <tr>
           {headers.map((header) => (
-            <th className={styles['table__header']} key={header.key}>
+            <th
+              key={header.key}
+              className={styles['table__header']}
+              style={{ width: header.width }}
+            >
               {header.name}
             </th>
           ))}
@@ -23,7 +27,11 @@ export const Table = ({ headers, rows }: Props) => {
         {rows.map((row, rowIndex) => (
           <tr key={rowIndex}>
             {headers.map((header) => (
-              <td key={`row_${rowIndex}_${header.key}`}>
+              <td
+                key={`row_${rowIndex}_${header.key}`}
+                className={styles['table__cell']}
+                style={{ width: header.width }}
+              >
                 {row.get(header.key) || <span>&mdash;</span>}
               </td>
             ))}
