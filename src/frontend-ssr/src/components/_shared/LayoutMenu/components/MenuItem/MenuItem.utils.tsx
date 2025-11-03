@@ -1,17 +1,18 @@
 import { CategoryIcon, CreditCardIcon, DashboardIcon, GroupIcon } from '@components';
 import { APP_ROUTES } from '@constants';
 
+import { buildRoute } from '../../LayoutMenu.utils';
+
 export const getRouteIcon = (link: string, active: boolean): React.ReactNode  => {
   const color = active ? 'white' : '#757575';
-
   switch (link) {
     case APP_ROUTES.overview:
       return <DashboardIcon color={color} />;
-    case APP_ROUTES.transactions:
+    case buildRoute(APP_ROUTES.transactions):
       return <CreditCardIcon color={color} />;
-    case APP_ROUTES.categories:
+    case buildRoute(APP_ROUTES.categories):
       return <CategoryIcon color={color} />;
-    case APP_ROUTES.groups:
+    case buildRoute(APP_ROUTES.groups):
       return <GroupIcon color={color} />;
     default:
       return <></>;
