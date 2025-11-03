@@ -33,7 +33,7 @@ export const authFetchApi = async <TRequest, TResponse>(
   };
 
   try {
-    const result = await fetchApi<TRequest, TResponse>(url, method, body, headers);
+    const result = await fetchApi<TRequest, TResponse>(url, method, body, newHeaders);
     return result;
   } catch (e) {
     const axiosError = e as AxiosError;
