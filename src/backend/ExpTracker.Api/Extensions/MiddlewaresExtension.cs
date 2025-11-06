@@ -11,7 +11,8 @@ namespace ExpTracker.Api.Extensions
 				config.AllowAnyHeader();
 				config.AllowAnyOrigin();
 				config.AllowAnyMethod();
-			});
+                config.WithExposedHeaders(["x-total-count"]);
+            });
 
 			app.UseMiddleware<ExceptionsMiddleware>();
 
