@@ -10,7 +10,20 @@ export const useFetch = <TRequest, TResponse>(fetchFn: FetchFn<TRequest, TRespon
   const [data, setData] = useState<TResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [headers, setHeaders] = useState<Record<string, string> | null>(null);
+
+  // headers
+  const [totalCount, setTotalCount] = useState<number>(0);
+
+  const setHeaders = (response: AxiosResponse<TResponse> | null) => {
+    if (!response) {
+      setTotalCount(0);
+      return;
+    }
+
+    const { headers } = response;
+
+    if (headers[TOTAL_COUNT_HEADER]) setTotalCount(headers[TOTAL_COUNT_HEADER]);
+  };
 
   const dispatch = async (request: TRequest) => {
     setLoading(true);
@@ -24,16 +37,15 @@ export const useFetch = <TRequest, TResponse>(fetchFn: FetchFn<TRequest, TRespon
 
       setData(response.data);
       setLoading(false);
-      // TODO: устанавливать хедеры
+      setHeaders(response);
     } catch (e) {
       const error = e as AxiosError<ErrorResponse>;
-
+      console.error(e);
       setError(error.response?.data.message || FAILED_FETCH_MSG);
       setData(null);
       setLoading(false);
-      setHeaders(null);
     }
   };
 
-  return { data, loading, error, headers, dispatch };
+  return { data, loading, error, totalCount, dispatch };
 };

@@ -1,10 +1,42 @@
 'use client';
 
-import { Page, PageHeader } from '@components';
+import { useEffect, useMemo } from 'react';
 
-import { CategoriesTable } from './_components';
+import { CategoriesRepository } from '@api';
+import { Page, PageHeader, Pagination, SearchInput, Table } from '@components';
+import { useFetch, useFilters } from '@hooks';
+import { TableRow } from '@types';
+
+import { HEADER_CODES, HEADERS_TABLE } from './page.constants';
 
 export default function CategoriesPage() {
+  const { data, dispatch, totalCount } = useFetch(CategoriesRepository.get);
+  const { filters, setPage, page, setItemsPerPage, setFilters } = useFilters();
+  
+  useEffect(() => {
+    dispatch({
+      limit: filters.limit!,
+      offset: filters.offset!,
+    });
+  }, [filters]);
+
+  const rowsTable = useMemo(() => {
+    if (!data) return [];
+
+    const rows: TableRow[] = [];
+
+    data.forEach((category) => {
+      const row: TableRow = new Map();
+
+      row.set(HEADER_CODES.name, category.name);
+      row.set(HEADER_CODES.description, category.guid);
+
+      rows.push(row);
+    });
+
+    return rows;
+  }, [data]);
+
   return (
     <Page
       header={
@@ -15,7 +47,19 @@ export default function CategoriesPage() {
         />
       }
     >
-      <CategoriesTable />
+      <SearchInput
+        onSearch={(value) => setFilters({ ...filters, searchString: value })}
+      />
+      <Table
+        headers={HEADERS_TABLE}
+        rows={rowsTable}
+      />
+      <Pagination
+        totalCount={totalCount}
+        onItemsPerPageChanged={setItemsPerPage}
+        onPageChanged={setPage}
+        page={page}
+      />
     </Page>
   );
 }

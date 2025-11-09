@@ -1,0 +1,19 @@
+.separator {
+  height: 30px;
+  width: 30px;
+
+  display: flex;
+  align-items: flex-end;
+
+  font-size: 1.25rem;
+
+  color: var(--text-primary);
+}
+
+.separator__left {
+  justify-content: flex-end;
+}
+
+.separator__right {
+  justify-content: flex-start;
+}

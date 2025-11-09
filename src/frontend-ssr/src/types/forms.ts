@@ -8,3 +8,7 @@ export type RegisterFormType = {
   password: string;
   repeatPassword: string;
 }
+
+export type SearchFormType = {
+  search: string;
+}

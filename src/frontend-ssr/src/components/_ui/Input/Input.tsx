@@ -1,7 +1,7 @@
 'use client';
 
 import classNames from 'classnames';
-import { HTMLInputTypeAttribute, useEffect } from 'react';
+import { HTMLInputTypeAttribute, KeyboardEvent, FocusEvent } from 'react';
 import { Control, Controller } from 'react-hook-form';
 
 import { Label } from '@components';
@@ -15,7 +15,10 @@ type Props = {
   error?: string;
   placeholder?: string;
   type?: HTMLInputTypeAttribute;
+  icon?: React.ReactNode;
 
+  onBlur?(event: FocusEvent<HTMLInputElement>): void;
+  onKeyDown?(event: KeyboardEvent<HTMLInputElement>): void;
   onChange?(val: string): void;
 }
 
@@ -48,6 +51,8 @@ const ControlledInput = (props: Props) => (
               field.onChange(e);
               props.onChange && props.onChange(e.target.value);
             }}
+            onBlur={props.onBlur}
+            onKeyDown={props.onKeyDown}
           />
           {!!fieldState.error && (
             <span className={styles.error}>{fieldState.error.message}</span>

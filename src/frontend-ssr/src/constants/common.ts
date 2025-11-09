@@ -1,6 +1,6 @@
 // routes
 
-import { ComponentSize } from '@types';
+import { ComponentSize, Filters } from '@types';
 
 export enum APP_ROUTES {
   base = '/',
@@ -33,5 +33,14 @@ export const SIZES_MAPPING: Record<ComponentSize, number> = {
 
 export const TOTAL_COUNT_HEADER = 'x-total-count';
 
-
+// pagination
 export const PAGINATION_ITEMS_PER_PAGE = [10, 20, 50];
+export const PAGINATION_PAGES_COUNT = 7;
+
+// filters
+
+export const DEFAULT_FILTERS: Filters = {
+  searchString: '',
+  limit: 10,
+  offset: 0,
+};
