@@ -1,6 +1,5 @@
 ﻿using System.Text;
-using ExpTracker.Core.Implementation;
-using ExpTracker.Core.Interfaces;
+using ExpTracker.Core.DependencyInjection;
 using ExpTracker.Core.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -65,12 +64,8 @@ namespace ExpTracker.Api.Extensions
 				});
 
 			builder.Services.AddSingleton<AuthOptions>(_ => CreateAuthOptions(builder));
-			builder.Services.AddSingleton<IAuthUtils, AuthUtils>();
 
-			builder.Services.AddScoped<IAuthService, AuthService>();
-			builder.Services.AddScoped<IUsersService, UsersService>();
-			builder.Services.AddScoped<IProfileService, ProfileService>();
-			builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+			builder.Services.AddCoreServices();
 
 			return builder;
 		}

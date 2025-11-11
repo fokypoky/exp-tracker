@@ -7,12 +7,21 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="MediatR" Version="12.3.0" />
+      <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.7" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\ExpTracker.DataAccess.PostgreSQL\ExpTracker.DataAccess.PostgreSQL.csproj" />
       <ProjectReference Include="..\ExpTracker.Entities\ExpTracker.Entities.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Auth\Commands\LogIn\" />
+      <Folder Include="Auth\Commands\LogOut\" />
+      <Folder Include="Auth\Commands\Refresh\" />
+      <Folder Include="Profile\Queries\" />
     </ItemGroup>
 
 </Project>

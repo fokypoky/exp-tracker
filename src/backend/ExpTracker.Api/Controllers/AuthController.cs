@@ -1,7 +1,8 @@
 ﻿using ExpTracker.Api.Extensions;
-using ExpTracker.Api.Mapping.ResponseMapper;
+using ExpTracker.Core.Auth.Commands.Register;
 using ExpTracker.Core.Interfaces;
 using ExpTracker.Entities.Dto.Requests.Auth;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpTracker.Api.Controllers
@@ -11,16 +12,18 @@ namespace ExpTracker.Api.Controllers
 	public class AuthController : ControllerBase
 	{
 		private readonly IAuthService _authService;
+        private readonly IMediator _mediator;
 
-		public AuthController(IAuthService authService)
+		public AuthController(IAuthService authService, IMediator mediator)
 		{
 			_authService = authService;
+			_mediator = mediator;
 		}
 
 		[HttpPost("register")]
 		public async Task<IActionResult> Register([FromBody] AuthRequest request)
 		{
-			var response = await _authService.Register(request);
+            var response = await _mediator.Send(new RegisterCommand(request));
 			return this.MapResponse(response);
 		}
 
