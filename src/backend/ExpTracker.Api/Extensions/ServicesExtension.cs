@@ -4,6 +4,7 @@ using ExpTracker.Core.Interfaces;
 using ExpTracker.Core.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace ExpTracker.Api.Extensions
 {
@@ -30,6 +31,16 @@ namespace ExpTracker.Api.Extensions
 		public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
 		{
 			var authOptions = CreateAuthOptions(builder);
+
+            builder.Services.AddOpenApi();
+            builder.Services.AddSwaggerGen(options =>
+            {
+				options.SwaggerDoc("v1", new OpenApiInfo()
+                {
+					Title = "ExpTracker service",
+					Version = "1.0.0",
+                });
+            });
 
 			builder.Services.AddAuthorization();
 			builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

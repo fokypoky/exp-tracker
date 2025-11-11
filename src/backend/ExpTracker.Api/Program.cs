@@ -25,7 +25,7 @@ builder.AddRepositories();
 
 var app = builder.Build();
 
-app.AddMiddlewares();
+app.AddMiddlewares(builder.Environment.IsDevelopment());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
