@@ -3,13 +3,13 @@ using ExpTracker.Entities.Dto.Requests.Auth;
 using ExpTracker.Entities.Dto.Responses.Auth;
 using MediatR;
 
-namespace ExpTracker.Core.Auth.Commands.Register
+namespace ExpTracker.Core.Auth.Commands.LogIn
 {
-    public class RegisterCommand : IRequest<ServiceResponse<JwtTokenPair>>
+    public class LogInCommand : IRequest<ServiceResponse<JwtTokenPair>>
     {
         public AuthRequest Request { get; set; }
 
-        public RegisterCommand(AuthRequest request)
+        public LogInCommand(AuthRequest request)
         {
             Request = request;
         }

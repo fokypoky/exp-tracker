@@ -16,11 +16,6 @@ namespace ExpTracker.Core.DependencyInjection
         private static void AddServices(IServiceCollection services)
         {
             services.AddSingleton<IAuthUtils, AuthUtils>();
-
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IUsersService, UsersService>();
-            services.AddScoped<IProfileService, ProfileService>();
-            services.AddScoped<ICategoriesService, CategoriesService>();
         }
     }
 }

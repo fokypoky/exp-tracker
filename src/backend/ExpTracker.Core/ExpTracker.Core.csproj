@@ -17,11 +17,4 @@
       <ProjectReference Include="..\ExpTracker.Entities\ExpTracker.Entities.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Auth\Commands\LogIn\" />
-      <Folder Include="Auth\Commands\LogOut\" />
-      <Folder Include="Auth\Commands\Refresh\" />
-      <Folder Include="Profile\Queries\" />
-    </ItemGroup>
-
 </Project>

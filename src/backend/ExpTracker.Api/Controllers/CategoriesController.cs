@@ -1,7 +1,9 @@
 ﻿using ExpTracker.Api.Extensions;
 using ExpTracker.Api.Mapping.ClaimsParser;
-using ExpTracker.Core.Interfaces;
+using ExpTracker.Core.Categories.Commands.Create;
+using ExpTracker.Core.Categories.Queries.GetCategories;
 using ExpTracker.Entities.Dto.Requests.Categories;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +13,11 @@ namespace ExpTracker.Api.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoriesService _categoriesService;
+        private readonly IMediator _mediator;
 
-        public CategoriesController(ICategoriesService categoriesService)
+        public CategoriesController(IMediator mediator)
         {
-            _categoriesService = categoriesService;
+            _mediator = mediator;
         }
 
         [HttpPost]
@@ -24,7 +26,7 @@ namespace ExpTracker.Api.Controllers
         {
             var userId = ClaimsParser.GetUserId(this.User);
 
-            var result = await _categoriesService.CreateAsync(userId, request);
+            var result = await _mediator.Send(new CreateCategoryCommand(userId, request));
 
             return this.MapResponse(result);
         }
@@ -35,7 +37,7 @@ namespace ExpTracker.Api.Controllers
         {
             var userId = ClaimsParser.GetUserId(this.User);
 
-            var result = await _categoriesService.GetAsync(userId, request);
+            var result = await _mediator.Send(new GetCategoriesQuery(userId, request));
 
             return this.MapPaginatedResponse(result);
         }
