@@ -1,4 +1,5 @@
-﻿using ExpTracker.Api.Extensions;
+﻿using System.Diagnostics.CodeAnalysis;
+using ExpTracker.Api.Extensions;
 using ExpTracker.Api.Mapping.ClaimsParser;
 using ExpTracker.Core.Categories.Commands.Create;
 using ExpTracker.Core.Categories.Queries.GetCategories;
@@ -9,8 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpTracker.Api.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
+    [ExcludeFromCodeCoverage]
     public class CategoriesController : ControllerBase
     {
         private readonly IMediator _mediator;

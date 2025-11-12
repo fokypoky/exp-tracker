@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using ExpTracker.Api.Extensions;
 using ExpTracker.Api.Mapping.ClaimsParser;
 using ExpTracker.Core.Profile.Queries.Get;
@@ -7,8 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpTracker.Api.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
+    [ExcludeFromCodeCoverage]
     public class ProfileController : ControllerBase
     {
         private readonly IMediator _mediator;

@@ -1,4 +1,5 @@
-﻿using ExpTracker.Api.Extensions;
+﻿using System.Diagnostics.CodeAnalysis;
+using ExpTracker.Api.Extensions;
 using ExpTracker.Core.Auth.Commands.LogIn;
 using ExpTracker.Core.Auth.Commands.LogOut;
 using ExpTracker.Core.Auth.Commands.Refresh;
@@ -9,9 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExpTracker.Api.Controllers
 {
-	[Route("[controller]")]
-	[ApiController]
-	public class AuthController : ControllerBase
+    [ApiController]
+    [Route("[controller]")]
+    [ExcludeFromCodeCoverage]
+    public class AuthController : ControllerBase
 	{
         private readonly IMediator _mediator;
 
