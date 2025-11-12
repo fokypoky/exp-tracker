@@ -40,3 +40,7 @@
   background: var(--text-primary);
   color: white;
 }
+
+.selector {
+  min-width: 150px;
+}

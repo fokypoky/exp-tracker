@@ -3,7 +3,9 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 
-import { PAGINATION_ITEMS_PER_PAGE } from '@constants';
+import { Select } from '@components';
+import { PAGINATION_ITEMS_PER_PAGE_OPTIONS } from '@constants';
+import { Option } from '@types';
 
 import { MoveButtons, Separator } from './components';
 import styles from './Pagination.module.css';
@@ -14,28 +16,30 @@ type Props = {
   page: number;
 
   onItemsPerPageChanged(itemsPerPage: number): void;
-  onPageChanged(page: number);
+  onPageChanged(page: number): void;
 }
 
 export const Pagination = ({ totalCount, page, onItemsPerPageChanged, onPageChanged }: Props) => {
-  const [itemsPerPage, setItemsPerPage] = useState<number>(PAGINATION_ITEMS_PER_PAGE[0]);
+  const [itemsPerPage, setItemsPerPage] = useState<Option<number>>(PAGINATION_ITEMS_PER_PAGE_OPTIONS[0]);
   const [pages, setPages] = useState<number[]>([]);
 
   useEffect(() => {
-    setPages(getPages(totalCount, itemsPerPage, page));
+    setPages(getPages(totalCount, itemsPerPage.value, page));
   }, [totalCount, page, itemsPerPage]);
 
   return (
     <div className={styles.pagination}>
       <div className={styles['pages_container']}>
-        <MoveButtons
-          position="left"
-          disabled={page === 1}
-          onSingleMove={() => onPageChanged(page - 1)}
-          onFullMove={() => onPageChanged(1)}
-        />
+        {pages.length > 0 && (
+          <MoveButtons
+            position="left"
+            disabled={page === 1}
+            onSingleMove={() => onPageChanged(page - 1)}
+            onFullMove={() => onPageChanged(1)}
+          />
+        )}
         <div className={styles['pages_container__items']}>
-          {showLeftSeparator(totalCount, itemsPerPage, page) && <Separator position="left" />}
+          {showLeftSeparator(totalCount, itemsPerPage.value, page) && <Separator position="left" />}
           {pages.map((item, index) => {
             const selected = page === item;
             const className = classNames(styles.page, {
@@ -54,16 +58,29 @@ export const Pagination = ({ totalCount, page, onItemsPerPageChanged, onPageChan
               </div>
             );
           })}
-          {showRightSeparator(totalCount, itemsPerPage, page) && <Separator position="right" />}
+          {showRightSeparator(totalCount, itemsPerPage.value, page) && <Separator position="right" />}
         </div>
-        <MoveButtons
-          position="right"
-          disabled={page === getTotalPages(totalCount, itemsPerPage)}
-          onSingleMove={() => onPageChanged(page + 1)}
-          onFullMove={() => onPageChanged(getTotalPages(totalCount, itemsPerPage))}
+        {pages.length > 0 && (
+          <MoveButtons
+            position="right"
+            disabled={page === getTotalPages(totalCount, itemsPerPage.value)}
+            onSingleMove={() => onPageChanged(page + 1)}
+            onFullMove={() => onPageChanged(getTotalPages(totalCount, itemsPerPage.value))}
+          />
+        )}
+      </div>
+      <div className={styles.selector}>
+        <Select
+          menuPlacement="top"
+          options={PAGINATION_ITEMS_PER_PAGE_OPTIONS}
+          onChange={(opt) => setItemsPerPage(opt)}
+          value={itemsPerPage}
+          label="Количество элементов"
+          labelGray
+          size="s"
+          disabled={pages.length === 0}
         />
       </div>
-      <div>SELECTOR</div>
     </div>
   );
 };
