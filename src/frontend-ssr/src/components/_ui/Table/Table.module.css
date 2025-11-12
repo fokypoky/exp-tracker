@@ -15,3 +15,8 @@
   border-bottom: 1px var(--line-color) solid;
   padding: var(--size-spacing-16);
 }
+
+.table__row:hover {
+  background-color: var(--hover-color);
+  cursor: pointer;
+}

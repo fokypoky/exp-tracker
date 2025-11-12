@@ -25,7 +25,7 @@ export const Table = ({ headers, rows }: Props) => {
       </thead>
       <tbody>
         {rows.map((row, rowIndex) => (
-          <tr key={rowIndex}>
+          <tr key={rowIndex} className={styles['table__row']}>
             {headers.map((header) => (
               <td
                 key={`row_${rowIndex}_${header.key}`}

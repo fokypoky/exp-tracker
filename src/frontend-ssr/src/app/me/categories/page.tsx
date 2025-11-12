@@ -4,7 +4,7 @@ import { useEffect, useMemo } from 'react';
 
 import { CategoriesRepository } from '@api';
 import { Page, PageHeader, Pagination, SearchInput, Table } from '@components';
-import { useFetch, useFilters } from '@hooks';
+import { useAppRouter, useFetch, useFilters } from '@hooks';
 import { TableRow } from '@types';
 
 import { HEADER_CODES, HEADERS_TABLE } from './page.constants';
@@ -12,7 +12,7 @@ import { HEADER_CODES, HEADERS_TABLE } from './page.constants';
 export default function CategoriesPage() {
   const { data, dispatch, totalCount } = useFetch(CategoriesRepository.get);
   const { filters, setPage, page, setItemsPerPage, setFilters } = useFilters();
-  
+
   useEffect(() => {
     dispatch({
       limit: filters.limit!,
