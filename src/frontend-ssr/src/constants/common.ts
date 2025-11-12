@@ -10,6 +10,7 @@ export enum APP_ROUTES {
   transactions = '/transactions',
   categories = '/categories',
   groups = '/groups',
+  create = '/create',
 }
 
 // containers
