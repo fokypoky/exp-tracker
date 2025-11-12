@@ -15,7 +15,7 @@ namespace ExpTracker.Core.Auth.Commands.LogOut
             _repository = repository;
             _utils = utils;
         }
-
+        
         public async Task<ServiceResponse<bool?>> Handle(LogOutCommand request, CancellationToken cancellationToken)
         {
             var guid = _utils.GetGuidFromToken(request.Request.RefreshToken);
