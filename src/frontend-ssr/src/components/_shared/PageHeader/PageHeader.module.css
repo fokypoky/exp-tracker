@@ -17,3 +17,10 @@
 .page_header__subtitle {
   color: var(--text-secondary);
 }
+
+.page_header__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-spacing-16);
+}

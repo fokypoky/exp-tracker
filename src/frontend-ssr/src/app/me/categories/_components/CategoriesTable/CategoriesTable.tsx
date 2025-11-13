@@ -16,7 +16,7 @@ type PaginatedState = {
 }
 
 export const CategoriesTable = () => {
-  const { data, error, dispatch } = useFetch(CategoriesRepository.get);
+  const { data, error, dispatch } = useFetch(CategoriesRepository.getList);
   const [paginatedState, setPaginatedState] = useState<PaginatedState>({ limit: 10, offset: 0 });
 
   const rows: TableRow[] = useMemo(() => {
@@ -28,7 +28,7 @@ export const CategoriesTable = () => {
       const row: TableRow = new Map();
 
       row.set(HEADER_CODES.name, category.name);
-      row.set(HEADER_CODES.description, category.guid);
+      row.set(HEADER_CODES.description, category.id);
 
       rows.push(row);
     });

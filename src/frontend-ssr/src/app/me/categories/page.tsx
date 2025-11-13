@@ -4,14 +4,14 @@ import { useEffect, useMemo } from 'react';
 
 import { CategoriesRepository } from '@api';
 import { Page, PageHeader, Pagination, SearchInput, Table } from '@components';
-import { APP_ROUTES } from '@constants';
+import { CREATE_PAGE_ID, TABLE_CLICK_KEY } from '@constants';
 import { useAppRouter, useFetch, useFilters } from '@hooks';
 import { TableRow } from '@types';
 
 import { HEADER_CODES, HEADERS_TABLE } from './page.constants';
 
 export default function CategoriesPage() {
-  const { data, dispatch, totalCount } = useFetch(CategoriesRepository.get);
+  const { data, dispatch, totalCount } = useFetch(CategoriesRepository.getList);
   const { filters, setPage, page, setItemsPerPage, setFilters } = useFilters();
   const navigate = useAppRouter();
 
@@ -31,13 +31,15 @@ export default function CategoriesPage() {
       const row: TableRow = new Map();
 
       row.set(HEADER_CODES.name, category.name);
-      row.set(HEADER_CODES.description, category.guid);
+      row.set(HEADER_CODES.description, category.id);
+
+      row.set(TABLE_CLICK_KEY, () => navigate(category.id));
 
       rows.push(row);
     });
 
     return rows;
-  }, [data]);
+  }, [data, navigate]);
 
   return (
     <Page
@@ -45,7 +47,7 @@ export default function CategoriesPage() {
         <PageHeader
           title="Категории"
           subtitle="Управляй категориями своих расходов и доходов"
-          onAdd={() => navigate(APP_ROUTES.create)}
+          onAdd={() => navigate(`/${CREATE_PAGE_ID}`)}
         />
       }
     >

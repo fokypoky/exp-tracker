@@ -1,4 +1,6 @@
-import { TableHeader, TableRow } from '@types';
+import { Dash } from '@components';
+import { TABLE_CLICK_KEY } from '@constants';
+import { TableHeader, TableRow, TableRowFnType } from '@types';
 
 import styles from './Table.module.css';
 
@@ -25,14 +27,17 @@ export const Table = ({ headers, rows }: Props) => {
       </thead>
       <tbody>
         {rows.map((row, rowIndex) => (
-          <tr key={rowIndex} className={styles['table__row']}>
+          <tr key={rowIndex} className={styles['table__row']} onClick={() => {
+            const callback = row.get(TABLE_CLICK_KEY) as TableRowFnType;
+            callback && callback();
+          }}>
             {headers.map((header) => (
               <td
                 key={`row_${rowIndex}_${header.key}`}
                 className={styles['table__cell']}
                 style={{ width: header.width }}
               >
-                {row.get(header.key) || <span>&mdash;</span>}
+                {(row.get(header.key) as string | React.ReactNode) || <Dash />}
               </td>
             ))}
           </tr>

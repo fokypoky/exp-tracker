@@ -3,6 +3,7 @@ using ExpTracker.Api.Extensions;
 using ExpTracker.Api.Mapping.ClaimsParser;
 using ExpTracker.Core.Categories.Commands.Create;
 using ExpTracker.Core.Categories.Queries.GetCategories;
+using ExpTracker.Core.Categories.Queries.GetCategory;
 using ExpTracker.Entities.Dto.Requests.Categories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -42,6 +43,15 @@ namespace ExpTracker.Api.Controllers
             var result = await _mediator.Send(new GetCategoriesQuery(userId, request));
 
             return this.MapPaginatedResponse(result);
+        }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var result = await _mediator.Send(new GetCategoryQuery(id));
+
+            return this.MapResponse(result);
         }
     }
 }

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import '../globals.css';
 
-import { LayoutMenu, Logo } from '@components';
+import { LayoutMenu, Logo, Notification } from '@components';
 import { APP_ROUTES } from '@constants';
 import { ProtectedProviders } from '@providers';
 
@@ -33,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{children: React.React
             </div>
             {children}
           </div>
+          <Notification placement="bottom-right" />
         </ProtectedProviders>
       </body>
     </html>

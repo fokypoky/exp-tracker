@@ -1,4 +1,6 @@
-export type TableRow = Map<string, string | React.ReactNode>;
+export type TableRowFnType = (() => void);
+
+export type TableRow = Map<string, string | React.ReactNode | TableRowFnType>;
 
 export type TableHeader = {
   key: string;

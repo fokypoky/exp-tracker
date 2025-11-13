@@ -10,8 +10,16 @@ export enum APP_ROUTES {
   transactions = '/transactions',
   categories = '/categories',
   groups = '/groups',
-  create = '/create',
 }
+
+export enum APP_WORKSPACE_ROUTES {
+  overview = '/me',
+  transactions = `/me${APP_ROUTES.transactions}`,
+  categories = `/me${APP_ROUTES.categories}`,
+  groups = `/me${APP_ROUTES.groups}`,
+}
+
+export const CREATE_PAGE_ID = 'create';
 
 // containers
 
@@ -56,3 +64,7 @@ export const DEFAULT_FILTERS: Filters = {
   limit: 10,
   offset: 0,
 };
+
+// table
+
+export const TABLE_CLICK_KEY = 'table_link_key';

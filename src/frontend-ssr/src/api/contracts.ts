@@ -1,7 +1,4 @@
-export type TokenPair = {
-  accessToken: string;
-  refreshToken: string;
-}
+// requests
 
 export type AuthRequest = {
   login: string;
@@ -12,14 +9,32 @@ export type RefreshTokenRequest = {
   refreshToken: string;
 }
 
+// categories
+
+export type GetCategoriesRequest = {
+  limit: number;
+  offset: number;
+}
+
+export type GetCategoryRequest = {
+  id: string;
+}
+
+export type CreateCategoryRequest = {
+  name: string;
+  description?: string;
+}
+
+// entities
+
 export type ErrorResponse = {
   code: number;
   message: string;
 }
 
-export type GetCategoriesRequest = {
-  limit: number;
-  offset: number;
+export type TokenPair = {
+  accessToken: string;
+  refreshToken: string;
 }
 
 export type JwtPayload = {
@@ -30,6 +45,7 @@ export type JwtPayload = {
 }
 
 export type TransactionCategory = {
-  guid: string;
+  id: string;
   name: string;
+  description?: string;
 }

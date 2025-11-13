@@ -25,15 +25,15 @@
 }
 
 .button__secondary {
-
+  border: 1px var(--line-color) solid;
 }
 
 .button__primary:hover {
-  background-color: rgb(20, 20, 20);
+  background-color: rgb(47, 47, 47);
 }
 
 .button__secondary:hover {
-
+  background-color: var(--hover-color);
 }
 
 .button__primary_disabled {

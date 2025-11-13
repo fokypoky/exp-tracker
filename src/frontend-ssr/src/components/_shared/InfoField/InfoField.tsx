@@ -1,11 +1,15 @@
-import styles from './InfoField.module.css';
+import { Dash, Label } from '@components';
 
 type Props = {
-  children: string | React.ReactNode;
+  label: string;
+  text: string;
 }
 
-export const InfoField = ({ children }: Props) => {
+export const InfoField = ({ label, text }: Props) => {
   return (
-    <span className={styles['info_field']}>{children}</span>
+    <div>
+      <Label text={label} size="m" gray />
+      <span>{text || <Dash />}</span>
+    </div>
   );
 };

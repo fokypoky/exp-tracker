@@ -12,3 +12,9 @@ export type RegisterFormType = {
 export type SearchFormType = {
   search: string;
 }
+
+export type CategoryFormType = {
+  id?: string;
+  name: string;
+  description?: string;
+}
