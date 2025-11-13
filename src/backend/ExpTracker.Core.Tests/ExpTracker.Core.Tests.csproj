@@ -8,6 +8,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="AuthUtils\**" />
+      <Compile Remove="UsersService\**" />
+      <EmbeddedResource Remove="AuthUtils\**" />
+      <EmbeddedResource Remove="UsersService\**" />
+      <None Remove="AuthUtils\**" />
+      <None Remove="UsersService\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="AutoFixture" Version="4.18.1" />
         <PackageReference Include="coverlet.collector" Version="6.0.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
@@ -18,11 +27,6 @@
 
     <ItemGroup>
         <Using Include="Xunit" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="AuthUtils\" />
-      <Folder Include="UsersService\" />
     </ItemGroup>
 
     <ItemGroup>

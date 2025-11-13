@@ -40,12 +40,12 @@ namespace ExpTracker.Core.Models
 			};
 		}
 
-		public static ServiceResponse<T> NotFound(string entity)
+		public static ServiceResponse<T> NotFound(string message)
 		{
 			return new ServiceResponse<T>()
 			{
 				Result = ResponseResult.NotFound,
-				Error = $"{entity} not found"
+				Error = message,
 			};
 		}
 

@@ -1,21 +1,23 @@
+using System.Diagnostics.CodeAnalysis;
 using ExpTracker.Api.Extensions;
 using ExpTracker.Api.Mapping.ClaimsParser;
-using ExpTracker.Api.Mapping.ResponseMapper;
-using ExpTracker.Core.Interfaces;
+using ExpTracker.Core.Profile.Queries.Get;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExpTracker.Api.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
+    [ExcludeFromCodeCoverage]
     public class ProfileController : ControllerBase
     {
-        private readonly IProfileService _profileService;
-
-        public ProfileController(IProfileService profileService)
+        private readonly IMediator _mediator;
+        
+        public ProfileController(IMediator mediator)
         {
-            _profileService = profileService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -23,8 +25,8 @@ namespace ExpTracker.Api.Controllers
         public async Task<IActionResult> GetProfile()
         {
             var user = ClaimsParser.GetUser(this.User);
-            
-            var response = await _profileService.GetAsync(user);
+
+            var response = await _mediator.Send(new GetProfileQuery(user));
             
             return this.MapResponse(response);
         }
