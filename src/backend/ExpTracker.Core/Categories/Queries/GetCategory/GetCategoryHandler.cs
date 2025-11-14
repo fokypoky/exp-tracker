@@ -16,7 +16,7 @@ namespace ExpTracker.Core.Categories.Queries.GetCategory
 
         public async Task<ServiceResponse<TransactionCategoryDto>> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
         {
-            var category = await _repository.GetAsync(request.CategoryId);
+            var category = await _repository.GetByIdAndUserIdAsync(request.CategoryId, request.UserId);
 
             if (category == null)
                 return ServiceResponse<TransactionCategoryDto>.NotFound("Категория не найдена");
@@ -24,7 +24,8 @@ namespace ExpTracker.Core.Categories.Queries.GetCategory
             return ServiceResponse<TransactionCategoryDto>.Ok(new TransactionCategoryDto()
             {
                 Id = category.Id,
-                Name = category.Name
+                Name = category.Name,
+                Description = category.Description,
             });
         }
     }

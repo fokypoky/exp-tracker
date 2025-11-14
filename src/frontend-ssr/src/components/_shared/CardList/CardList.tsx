@@ -31,6 +31,7 @@ export const CardList = ({ items }: Props) => {
 							<Button
 								color={ButtonColor.secondary}
 								className={styles.action_button}
+								onClick={() => item.onOpen()}
 							>
 								Открыть
 							</Button>

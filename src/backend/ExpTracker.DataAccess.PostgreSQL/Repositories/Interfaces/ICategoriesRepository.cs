@@ -7,6 +7,7 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Interfaces
     public interface ICategoriesRepository : IEntityRepository<TransactionCategory>
     {
         Task<TransactionCategory?> GetByNameAndUserIdAsync(string name, Guid userId);
+        Task<TransactionCategory?> GetByIdAndUserIdAsync(Guid id, Guid userId);
         Task<PaginatedCollection<TransactionCategory>> GetRangeAsync(Guid userId, int limit, int offset);
     }
 }

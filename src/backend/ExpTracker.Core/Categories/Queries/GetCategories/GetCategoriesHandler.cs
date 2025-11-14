@@ -1,11 +1,11 @@
 ﻿using ExpTracker.Core.Models;
 using ExpTracker.DataAccess.PostgreSQL.Repositories.Interfaces;
-using ExpTracker.Entities.Dto.Responses.Categories;
+using ExpTracker.Entities.Dto;
 using MediatR;
 
 namespace ExpTracker.Core.Categories.Queries.GetCategories
 {
-    public class GetCategoriesHandler : IRequestHandler<GetCategoriesQuery, ServiceResponse<PaginatedResponse<GetCategoryResponse>>>
+    public class GetCategoriesHandler : IRequestHandler<GetCategoriesQuery, ServiceResponse<PaginatedResponse<TransactionCategoryDto>>>
     {
         private readonly ICategoriesRepository _repository;
 
@@ -14,12 +14,17 @@ namespace ExpTracker.Core.Categories.Queries.GetCategories
             _repository = repository;
         }
 
-        public async Task<ServiceResponse<PaginatedResponse<GetCategoryResponse>>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
+        public async Task<ServiceResponse<PaginatedResponse<TransactionCategoryDto>>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
             var result = await _repository.GetRangeAsync(request.UserId, request.Request.Limit, request.Request.Offset);
 
-            return ServiceResponse<GetCategoryResponse>.Partial(
-                result.Data.Select(_ => new GetCategoryResponse() { Id = _.Id, Name = _.Name }).ToList(),
+            return ServiceResponse<TransactionCategoryDto>.Partial(
+                result.Data.Select(_ => new TransactionCategoryDto()
+                {
+                    Id = _.Id,
+                    Name = _.Name,
+                    Description = _.Description
+                }).ToList(),
                 result.TotalCount
             );
         }

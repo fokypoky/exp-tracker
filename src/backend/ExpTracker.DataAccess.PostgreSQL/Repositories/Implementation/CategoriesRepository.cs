@@ -48,6 +48,11 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
             return _context.TransactionCategories.FirstOrDefaultAsync(_ => _.Id == id);
         }
 
+        public Task<TransactionCategory?> GetByIdAndUserIdAsync(Guid id, Guid userId)
+        {
+            return _context.TransactionCategories.FirstOrDefaultAsync(_ => _.Id == id && _.UserId == userId);
+        }
+        
         public Task<TransactionCategory> UpdateAsync(TransactionCategory entity)
         {
             throw new NotImplementedException();

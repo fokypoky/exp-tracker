@@ -21,7 +21,12 @@ namespace ExpTracker.Core.Categories.Commands.Create
 
             if (existingCategory != null) return ServiceResponse<CreateCategoryResponse>.BadRequest($"Категория {request.Request.Name} уже существует");
 
-            var category = new TransactionCategory { Name = request.Request.Name, UserId = request.UserId };
+            var category = new TransactionCategory
+            {
+                Name = request.Request.Name,
+                UserId = request.UserId,
+                Description = request.Request.Description
+            };
 
             var result = await _repository.CreateAsync(category);
 

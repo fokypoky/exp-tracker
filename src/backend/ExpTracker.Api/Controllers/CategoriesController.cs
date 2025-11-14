@@ -49,7 +49,9 @@ namespace ExpTracker.Api.Controllers
         [Authorize]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            var result = await _mediator.Send(new GetCategoryQuery(id));
+            var userId = ClaimsParser.GetUserId(this.User);
+            
+            var result = await _mediator.Send(new GetCategoryQuery(id, userId));
 
             return this.MapResponse(result);
         }

@@ -4,8 +4,8 @@ using ExpTracker.Core.Models;
 using ExpTracker.DataAccess.PostgreSQL.Models;
 using ExpTracker.DataAccess.PostgreSQL.Repositories.Interfaces;
 using ExpTracker.Entities.Common;
+using ExpTracker.Entities.Dto;
 using ExpTracker.Entities.Dto.Requests.Categories;
-using ExpTracker.Entities.Dto.Responses.Categories;
 using Moq;
 
 namespace ExpTracker.Core.Tests.Categories.Queries
@@ -67,8 +67,8 @@ namespace ExpTracker.Core.Tests.Categories.Queries
             Assert.NotNull(result.Data.Data);
             Assert.NotEmpty(result.Data.Data);
 
-            Assert.IsType<PaginatedResponse<GetCategoryResponse>>(result.Data);
-            Assert.IsType<List<GetCategoryResponse>>(result.Data.Data);
+            Assert.IsType<PaginatedResponse<TransactionCategoryDto>>(result.Data);
+            Assert.IsType<List<TransactionCategoryDto>>(result.Data.Data);
 
             Assert.Equal(ResponseResult.Partial, result.Result);
 
@@ -107,8 +107,8 @@ namespace ExpTracker.Core.Tests.Categories.Queries
             Assert.NotNull(result.Data.Data);
             Assert.Empty(result.Data.Data);
 
-            Assert.IsType<PaginatedResponse<GetCategoryResponse>>(result.Data);
-            Assert.IsType<List<GetCategoryResponse>>(result.Data.Data);
+            Assert.IsType<PaginatedResponse<TransactionCategoryDto>>(result.Data);
+            Assert.IsType<List<TransactionCategoryDto>>(result.Data.Data);
 
             Assert.Equal(ResponseResult.Partial, result.Result);
             Assert.Equal(0, result.Data.TotalCount);

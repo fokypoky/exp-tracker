@@ -21,6 +21,11 @@ public class TransactionCategoriesConfiguration : IEntityTypeConfiguration<Trans
             .HasMaxLength(100)
             .IsRequired();
 
+        builder.Property(e => e.Description)
+            .HasColumnName("description")
+            .HasMaxLength(300)
+            .IsRequired(false);
+        
         builder
             .HasOne(tc => tc.User)
             .WithMany(u => u.TransactionCategories);
