@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-spacing-8);
+}
+
+.input {
+  height: 40px;
+  font-size: 1rem;
+  border-radius: 8px;
+  padding: 8px;
+  border: 1px #989898 solid;
+}
+
+.input__error {
+  border: 1px var(--error-color) solid;
+}
+
+.input__error:focus {
+  outline: none;
+  border: 2px var(--error-color) solid !important;
+}
+
+.input:focus {
+  outline: none;
+  border: 2px black solid;
+}
+
+.error {
+  font-size: 0.875rem;
+  color: var(--error-color);
+  word-break: break-all;
+}

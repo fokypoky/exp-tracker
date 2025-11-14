@@ -1,0 +1,12 @@
+.label {
+  display: flex;
+  color: black;
+}
+
+.label__bold {
+  font-weight: bold;
+}
+
+.label__gray {
+  color: var(--text-secondary);
+}

@@ -1,9 +1,9 @@
 ﻿using System.Text;
-using ExpTracker.Core.Implementation;
-using ExpTracker.Core.Interfaces;
+using ExpTracker.Core.DependencyInjection;
 using ExpTracker.Core.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace ExpTracker.Api.Extensions
 {
@@ -31,6 +31,16 @@ namespace ExpTracker.Api.Extensions
 		{
 			var authOptions = CreateAuthOptions(builder);
 
+            builder.Services.AddOpenApi();
+            builder.Services.AddSwaggerGen(options =>
+            {
+				options.SwaggerDoc("v1", new OpenApiInfo()
+                {
+					Title = "ExpTracker service",
+					Version = "1.0.0",
+                });
+            });
+
 			builder.Services.AddAuthorization();
 			builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddJwtBearer(options =>
@@ -54,11 +64,8 @@ namespace ExpTracker.Api.Extensions
 				});
 
 			builder.Services.AddSingleton<AuthOptions>(_ => CreateAuthOptions(builder));
-			builder.Services.AddSingleton<IAuthUtils, AuthUtils>();
 
-			builder.Services.AddScoped<IAuthService, AuthService>();
-			builder.Services.AddScoped<IUsersService, UsersService>();
-			builder.Services.AddScoped<IProfileService, ProfileService>();
+			builder.Services.AddCoreServices();
 
 			return builder;
 		}

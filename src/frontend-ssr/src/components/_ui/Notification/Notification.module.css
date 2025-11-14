@@ -1,0 +1,38 @@
+.container {
+  position: fixed;
+
+  width: 450px;
+  height: 120px;
+
+  display: flex;
+  flex-direction: column;
+
+  --spacing: 10px;
+}
+
+.container_bottom-right {
+  bottom: var(--spacing);
+  right: var(--spacing);
+}
+
+.container_bottom-left {
+  bottom: var(--spacing);
+  left: var(--spacing);
+}
+
+.container_top-left {
+  top: var(--spacing);
+  left: var(--spacing);
+}
+
+.container_top-right {
+  top: var(--spacing);
+  right: var(--spacing);
+}
+
+@media (max-width: 915px) {
+  .container {
+    width: 100%;
+    --spacing: 0;
+  }
+}

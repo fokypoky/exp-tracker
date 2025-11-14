@@ -1,0 +1,6 @@
+.page_actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-spacing-16);
+}

@@ -1,0 +1,66 @@
+.button {
+  all: unset;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+
+  display: flex;
+  gap: var(--size-spacing-16);
+  align-items: center;
+  justify-content: center;
+
+  --disabled-color: #484848;
+}
+
+.button svg {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
+.button__primary {
+  background-color: black;
+  color: white;
+}
+
+.button__secondary {
+  border: 1px var(--line-color) solid;
+}
+
+.button__primary:hover {
+  background-color: rgb(47, 47, 47);
+}
+
+.button__secondary:hover {
+  background-color: var(--hover-color);
+}
+
+.button__primary_disabled {
+  background-color: var(--disabled-color);
+  cursor: not-allowed;
+}
+
+.button__primary_disabled:hover {
+  background-color: var(--disabled-color);
+}
+
+.button__secondary_disabled {
+
+}
+
+.button__secondary_disabled:hover {
+
+}
+
+.button__size_s {
+  min-height: 1rem;
+}
+
+.button__size_m {
+  min-height: 1.5rem;
+}
+
+.button__size_l {
+  min-height: 2.5rem;
+}

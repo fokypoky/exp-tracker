@@ -4,6 +4,7 @@
 	{
 		Ok = 200,
 		Created = 201,
+		Partial = 206,
 		BadRequest = 400,
 		Unauthorized = 401,
 		Forbidden = 403,

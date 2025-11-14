@@ -1,0 +1,21 @@
+.move_buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-spacing-16);
+
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.move_buttons__disabled {
+  color: var(--text-secondary);
+  cursor: no-drop;
+}
+
+.icon {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

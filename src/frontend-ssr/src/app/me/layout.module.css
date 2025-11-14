@@ -1,0 +1,29 @@
+.body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  min-height: 40px;
+  padding: var(--size-spacing-8);
+  border-bottom: 1px var(--line-color) solid;
+}
+
+.body__container {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+}
+
+.menu {
+  min-width: 200px !important;
+}

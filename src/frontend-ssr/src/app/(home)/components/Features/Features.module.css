@@ -1,0 +1,35 @@
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-spacing-24);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.features__subtitle {
+  color: gray;
+}
+
+.cards {
+  display: flex;
+  gap: var(--size-spacing-16);
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 350px;
+  text-align: left;
+  color: gray;
+}
+
+@media (max-width: 915px) {
+  .card {
+    width: 100%;
+  }
+
+  .cards {
+    width: 100%;
+    padding: 1rem;
+  }
+}

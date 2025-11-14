@@ -4,14 +4,21 @@ namespace ExpTracker.Api.Extensions
 {
 	public static class MiddlewaresExtension
 	{
-		public static WebApplication AddMiddlewares(this WebApplication app)
+		public static WebApplication AddMiddlewares(this WebApplication app, bool useSwagger)
 		{
+            if (useSwagger)
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
 			app.UseCors(config =>
 			{
 				config.AllowAnyHeader();
 				config.AllowAnyOrigin();
 				config.AllowAnyMethod();
-			});
+                config.WithExposedHeaders(["x-total-count"]);
+            });
 
 			app.UseMiddleware<ExceptionsMiddleware>();
 

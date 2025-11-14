@@ -1,10 +1,17 @@
-﻿namespace ExpTracker.Core.Models
+﻿using ExpTracker.DataAccess.PostgreSQL.Models;
+
+namespace ExpTracker.Core.Models
 {
 	public class ServiceResponse<T>
 	{
 		public ResponseResult Result { get; set; }
 		public T? Data { get; set; }
 		public string? Error { get; set; }
+
+		public bool IsSuccess()
+		{
+			return Result == ResponseResult.Ok || Result == ResponseResult.Partial || Result == ResponseResult.Created;
+		}
 
 		public static ServiceResponse<T> Created(T entity)
 		{
@@ -33,12 +40,12 @@
 			};
 		}
 
-		public static ServiceResponse<T> NotFound(string entity)
+		public static ServiceResponse<T> NotFound(string message)
 		{
 			return new ServiceResponse<T>()
 			{
 				Result = ResponseResult.NotFound,
-				Error = $"{entity} not found"
+				Error = message,
 			};
 		}
 
@@ -48,6 +55,19 @@
 			{
 				Result = ResponseResult.BadRequest,
 				Error = message
+			};
+		}
+
+		public static ServiceResponse<PaginatedResponse<T>> Partial(List<T> collection, int totalCount)
+		{
+			return new ServiceResponse<PaginatedResponse<T>>
+			{
+				Result = ResponseResult.Partial,
+				Data = new PaginatedResponse<T>
+				{
+					Data = collection,
+					TotalCount = totalCount,
+				}
 			};
 		}
 	}
