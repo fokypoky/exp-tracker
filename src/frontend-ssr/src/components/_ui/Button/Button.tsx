@@ -14,6 +14,7 @@ type Props = {
   icon?: React.ReactNode;
   disabled?: boolean;
   spinner?: boolean;
+  className?: string;
 
   onClick?(event: MouseEvent<HTMLButtonElement>): void;
 }
@@ -31,9 +32,10 @@ export const Button = ({
   disabled,
   spinner,
   type,
+  className,
   onClick,
 }: Props) => {
-  const className = classNames(styles.button, styles[`button__size_${size}`], {
+  const componentClassName = classNames(styles.button, className, styles[`button__size_${size}`], {
     [styles['button__primary']]: color === ButtonColor.primary,
     [styles['button__secondary']]: color === ButtonColor.secondary,
     [styles['button__primary_disabled']]: color === ButtonColor.primary && disabled,
@@ -42,7 +44,7 @@ export const Button = ({
   
   return (
     <button
-      className={className}
+      className={componentClassName}
       onClick={onClick}
       type={type}
       disabled={disabled}

@@ -3,12 +3,10 @@
 import { useEffect, useMemo } from 'react';
 
 import { CategoriesRepository } from '@api';
-import { Page, PageHeader, Pagination, SearchInput, Table } from '@components';
-import { CREATE_PAGE_ID, TABLE_CLICK_KEY } from '@constants';
+import { CardList, Page, PageHeader, Pagination, SearchInput } from '@components';
+import { CREATE_PAGE_ID } from '@constants';
 import { useAppRouter, useFetch, useFilters } from '@hooks';
-import { TableRow } from '@types';
-
-import { HEADER_CODES, HEADERS_TABLE } from './page.constants';
+import { CardListItem } from '@types';
 
 export default function CategoriesPage() {
   const { data, dispatch, totalCount } = useFetch(CategoriesRepository.getList);
@@ -22,23 +20,15 @@ export default function CategoriesPage() {
     });
   }, [filters]);
 
-  const rowsTable = useMemo(() => {
+  const cardList: CardListItem[] = useMemo(() => {
     if (!data) return [];
 
-    const rows: TableRow[] = [];
-
-    data.forEach((category) => {
-      const row: TableRow = new Map();
-
-      row.set(HEADER_CODES.name, category.name);
-      row.set(HEADER_CODES.description, category.id);
-
-      row.set(TABLE_CLICK_KEY, () => navigate(category.id));
-
-      rows.push(row);
-    });
-
-    return rows;
+    return data.map((item) => ({
+      title: item.name,
+      description: item.description || '',
+      onOpen: () => navigate(`/${item.id}`),
+      onDelete: () => {},
+    }));
   }, [data, navigate]);
 
   return (
@@ -54,10 +44,7 @@ export default function CategoriesPage() {
       <SearchInput
         onSearch={(value) => setFilters({ ...filters, searchString: value })}
       />
-      <Table
-        headers={HEADERS_TABLE}
-        rows={rowsTable}
-      />
+      <CardList items={cardList} />
       <Pagination
         totalCount={totalCount}
         onItemsPerPageChanged={setItemsPerPage}
