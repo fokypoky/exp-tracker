@@ -38,6 +38,13 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
             };
         }
 
+        public async Task<bool> IsExistsAsync(Guid id, Guid userId)
+        {
+            var count = await _context.TransactionCategories.CountAsync(_ => _.Id == id && _.UserId == userId);
+
+            return count > 0;
+        }
+
         public Task DeleteAsync(TransactionCategory entity)
         {
             throw new NotImplementedException();
@@ -53,9 +60,12 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
             return _context.TransactionCategories.FirstOrDefaultAsync(_ => _.Id == id && _.UserId == userId);
         }
         
-        public Task<TransactionCategory> UpdateAsync(TransactionCategory entity)
+        public async Task<TransactionCategory> UpdateAsync(TransactionCategory entity)
         {
-            throw new NotImplementedException();
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+
+            return entity;
         }
     }
 }

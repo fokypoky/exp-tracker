@@ -11,6 +11,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
 	options.SerializerSettings.Formatting = Formatting.Indented;
+    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 });
 
 builder.Services.AddDbContext<ExpTrackerDbContext>(options =>
