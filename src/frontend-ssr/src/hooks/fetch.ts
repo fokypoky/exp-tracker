@@ -3,10 +3,13 @@ import { useState } from 'react';
 
 import { ErrorResponse } from '@api';
 import { FAILED_FETCH_MSG, TOTAL_COUNT_HEADER } from '@constants';
+import { useNotifier } from '@hooks';
 
 type FetchFn<TRequest, TResponse> = (request: TRequest) => Promise<AxiosResponse<TResponse>>;
 
 export const useFetch = <TRequest, TResponse>(fetchFn: FetchFn<TRequest, TResponse>) => {
+  const { error: notifyError } = useNotifier();
+
   const [data, setData] = useState<TResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +31,6 @@ export const useFetch = <TRequest, TResponse>(fetchFn: FetchFn<TRequest, TRespon
   const dispatch = async (request: TRequest) => {
     setLoading(true);
 
-    setData(null);
     setError(null);
     setHeaders(null);
 
@@ -38,12 +40,20 @@ export const useFetch = <TRequest, TResponse>(fetchFn: FetchFn<TRequest, TRespon
       setData(response.data);
       setLoading(false);
       setHeaders(response);
+
+      return response.data;
     } catch (e) {
       const error = e as AxiosError<ErrorResponse>;
       console.error(e);
-      setError(error.response?.data.message || FAILED_FETCH_MSG);
-      setData(null);
+
+      const message = error.response?.data.message || FAILED_FETCH_MSG;
+
+      setError(message);
       setLoading(false);
+
+      notifyError({ message });
+
+      return undefined;
     }
   };
 

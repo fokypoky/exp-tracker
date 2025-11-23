@@ -25,7 +25,7 @@ export const Notification = ({ placement }: Props) => {
           id={notification.id || ''}
           index={index + 1}
           type={notification.type}
-          title={notification.title}
+          title={notification.title || ''}
           message={notification.message}
           totalCount={notifications.length}
         />

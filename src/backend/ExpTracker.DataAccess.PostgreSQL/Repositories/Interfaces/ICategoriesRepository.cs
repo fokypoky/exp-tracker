@@ -8,6 +8,7 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Interfaces
     {
         Task<TransactionCategory?> GetByNameAndUserIdAsync(string name, Guid userId);
         Task<TransactionCategory?> GetByIdAndUserIdAsync(Guid id, Guid userId);
+        Task<TransactionCategory?> GetByUserIdAndNameAsync(Guid userId, string name);
         Task<PaginatedCollection<TransactionCategory>> GetRangeAsync(Guid userId, int limit, int offset);
         Task<bool> IsExistsAsync(Guid id, Guid userId);
     }

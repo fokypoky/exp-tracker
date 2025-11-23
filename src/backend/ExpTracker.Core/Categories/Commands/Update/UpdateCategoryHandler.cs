@@ -18,8 +18,10 @@ namespace ExpTracker.Core.Categories.Commands.Update
         public async Task<ServiceResponse<TransactionCategoryDto>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
             var isExists = await _repository.IsExistsAsync(request.Request.Id, request.UserId);
+            var newNameCategory = await _repository.GetByUserIdAndNameAsync(request.UserId, request.Request.Name);
 
             if (!isExists) return ServiceResponse<TransactionCategoryDto>.NotFound("Категория не найдена");
+            if (newNameCategory != null) return ServiceResponse<TransactionCategoryDto>.BadRequest("Категория уже существует");
 
             var category = request.Request;
             var mappedCategory = new TransactionCategory()

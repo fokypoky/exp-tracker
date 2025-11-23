@@ -18,6 +18,10 @@ class categoriesRepository {
   create(request: CreateCategoryRequest): Promise<AxiosResponse<TransactionCategory>> {
     return authFetchApi<CreateCategoryRequest, TransactionCategory>('/categories', 'POST', request);
   }
+
+  update(request: TransactionCategory): Promise<AxiosResponse<TransactionCategory>> {
+    return authFetchApi<TransactionCategory, TransactionCategory>('/categories', 'PUT', request);
+  }
 }
 
 export const CategoriesRepository = new categoriesRepository();

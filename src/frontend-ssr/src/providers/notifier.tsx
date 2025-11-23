@@ -29,7 +29,6 @@ export const NotifierProvider = ({ children }: Props) => {
     };
 
     setNotifications((prev) => [...prev, newNotification]);
-
     setTimeout(() => remove(newNotification.id), newNotification.duration);
   }, []);
 

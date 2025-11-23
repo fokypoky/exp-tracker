@@ -5,7 +5,7 @@ import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@constants';
 
 import { clearStorageTokenPair, setStorageTokenPair } from './localStorage';
 
-type RequestMethod = 'GET' | 'POST';
+type RequestMethod = 'GET' | 'POST' | 'PUT';
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
