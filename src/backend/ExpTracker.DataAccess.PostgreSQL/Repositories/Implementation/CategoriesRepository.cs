@@ -12,7 +12,7 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
         public CategoriesRepository(ExpTrackerDbContext context)
         {
             _context = context;
-        }   
+        }
 
         public Task<TransactionCategory?> GetByNameAndUserIdAsync(string name, Guid userId)
         {
@@ -45,9 +45,10 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
             return count > 0;
         }
 
-        public Task DeleteAsync(TransactionCategory entity)
+        public async Task DeleteAsync(TransactionCategory entity)
         {
-            throw new NotImplementedException();
+            _context.TransactionCategories.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
         public Task<TransactionCategory> GetAsync(Guid id)
@@ -63,6 +64,11 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
         public Task<TransactionCategory?> GetByUserIdAndNameAsync(Guid userId, string name)
         {
             return _context.TransactionCategories.FirstOrDefaultAsync(_ => _.UserId == userId && _.Name == name);
+        }
+
+        public Task<bool> IsRelatedAsync(Guid id)
+        {
+            return _context.Transactions.Where(t => t.CategoryId == id).AnyAsync();
         }
 
         public async Task<TransactionCategory> UpdateAsync(TransactionCategory entity)

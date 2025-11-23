@@ -10,6 +10,8 @@ import { CardListItem } from '@types';
 
 export default function CategoriesPage() {
   const { data, dispatch, totalCount } = useFetch(CategoriesRepository.getList);
+  const { dispatch: dispatchDelete } = useFetch(CategoriesRepository.delete);
+
   const { filters, setPage, page, setItemsPerPage, setFilters } = useFilters();
   const navigate = useAppRouter();
 
@@ -27,9 +29,13 @@ export default function CategoriesPage() {
       title: item.name,
       description: item.description || '',
       onOpen: () => navigate(`/${item.id}`),
-      onDelete: () => {},
+      onDelete: () => {
+        dispatchDelete(item.id).then(() => {
+          dispatch({ limit: filters.limit!, offset: filters.offset! });
+        });
+      },
     }));
-  }, [data, navigate]);
+  }, [data, navigate, filters]);
 
   return (
     <Page
@@ -44,7 +50,7 @@ export default function CategoriesPage() {
       <SearchInput
         onSearch={(value) => setFilters({ ...filters, searchString: value })}
       />
-      <CardList items={cardList} />
+      <CardList items={cardList}/>
       <Pagination
         totalCount={totalCount}
         onItemsPerPageChanged={setItemsPerPage}

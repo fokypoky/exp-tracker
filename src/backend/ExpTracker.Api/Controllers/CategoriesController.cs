@@ -2,6 +2,7 @@
 using ExpTracker.Api.Extensions;
 using ExpTracker.Api.Mapping.ClaimsParser;
 using ExpTracker.Core.Categories.Commands.Create;
+using ExpTracker.Core.Categories.Commands.Delete;
 using ExpTracker.Core.Categories.Commands.Update;
 using ExpTracker.Core.Categories.Queries.GetCategories;
 using ExpTracker.Core.Categories.Queries.GetCategory;
@@ -65,6 +66,17 @@ namespace ExpTracker.Api.Controllers
             var userId = ClaimsParser.GetUserId(this.User);
 
             var result = await _mediator.Send(new UpdateCategoryCommand(userId, request));
+
+            return this.MapResponse(result);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            var userId = ClaimsParser.GetUserId(this.User);
+
+            var result = await _mediator.Send(new DeleteCategoryCommand(id, userId));
 
             return this.MapResponse(result);
         }
