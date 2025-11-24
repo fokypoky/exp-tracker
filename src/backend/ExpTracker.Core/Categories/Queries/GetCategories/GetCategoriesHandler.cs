@@ -16,7 +16,7 @@ namespace ExpTracker.Core.Categories.Queries.GetCategories
 
         public async Task<ServiceResponse<PaginatedResponse<TransactionCategoryDto>>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
-            var result = await _repository.GetRangeAsync(request.UserId, request.Request.Limit, request.Request.Offset);
+            var result = await _repository.GetRangeAsync(request.UserId, request.Request.Limit, request.Request.Offset, request.Request.Search);
 
             return ServiceResponse<TransactionCategoryDto>.Partial(
                 result.Data.Select(_ => new TransactionCategoryDto()

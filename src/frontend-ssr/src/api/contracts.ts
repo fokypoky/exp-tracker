@@ -12,6 +12,7 @@ export type RefreshTokenRequest = {
 // categories
 
 export type GetCategoriesRequest = {
+  search?: string;
   limit: number;
   offset: number;
 }

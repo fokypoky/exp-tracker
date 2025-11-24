@@ -5,9 +5,10 @@ import styles from './CardList.module.css';
 
 type Props = {
   items: CardListItem[];
+  emptyText?: string;
 }
 
-export const CardList = ({ items }: Props) => {
+export const CardList = ({ items, emptyText }: Props) => {
   return (
     <div className={styles.card_list}>
       {items.map((item, index) => (
@@ -42,6 +43,11 @@ export const CardList = ({ items }: Props) => {
           </div>
         </Card>
       ))}
+      {items.length === 0 && emptyText && (
+        <div className={styles.card__content_empty}>
+          {emptyText}
+        </div>
+      )}
     </div>
   );
 };

@@ -61,7 +61,7 @@ export const PAGINATION_PAGES_COUNT = 7;
 // filters
 
 export const DEFAULT_FILTERS: Filters = {
-  searchString: '',
+  search: '',
   limit: 10,
   offset: 0,
 };

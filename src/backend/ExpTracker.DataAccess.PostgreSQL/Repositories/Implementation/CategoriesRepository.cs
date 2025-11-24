@@ -27,9 +27,14 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
             return result.Entity;
         }
 
-        public async Task<PaginatedCollection<TransactionCategory>> GetRangeAsync(Guid userId, int limit, int offset)
+        public async Task<PaginatedCollection<TransactionCategory>> GetRangeAsync(Guid userId, int limit, int offset, string search)
         {
-            var query = _context.TransactionCategories.Where(_ => _.UserId == userId);
+            var lowerSearch = search.ToLower();
+
+            var query = _context.TransactionCategories
+                .Where(e => e.UserId == userId)
+                .Where(e => e.Name.ToLower().Contains(lowerSearch) ||
+                            (e.Description != null && e.Description.ToLower().Contains(lowerSearch)));
 
             return new PaginatedCollection<TransactionCategory>()
             {

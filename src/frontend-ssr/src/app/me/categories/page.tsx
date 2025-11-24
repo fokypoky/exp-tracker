@@ -25,6 +25,7 @@ export default function CategoriesPage() {
     dispatch({
       limit: filters.limit!,
       offset: filters.offset!,
+      search: (filters.search || '').trim() || undefined,
     });
   }, [filters]);
 
@@ -67,9 +68,14 @@ export default function CategoriesPage() {
         }
       >
         <SearchInput
-          onSearch={(value) => setFilters({ ...filters, searchString: value })}
+          onSearch={(value) => {
+            filters.search?.trim() !== value.trim() && setFilters({ ...filters, search: value });
+          }}
         />
-        <CardList items={cardList}/>
+        <CardList
+          items={cardList}
+          emptyText="Категории не найдены. Добавьте их"
+        />
         <Pagination
           totalCount={totalCount}
           onItemsPerPageChanged={setItemsPerPage}

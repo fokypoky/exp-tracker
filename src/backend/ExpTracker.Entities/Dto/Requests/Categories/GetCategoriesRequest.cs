@@ -1,8 +1,8 @@
-﻿namespace ExpTracker.Entities.Dto.Requests.Categories
+﻿using ExpTracker.Entities.Dto.Requests.Shared;
+
+namespace ExpTracker.Entities.Dto.Requests.Categories
 {
-    public class GetCategoriesRequest
+    public class GetCategoriesRequest : FilteredRequest
     {
-        public int Limit { get; set; } = 10;
-        public int Offset { get; set; } = 0;
     }
 }
