@@ -12,6 +12,9 @@
 
   --text-secondary: #929292;
   --text-primary: #252525;
+
+  /* z-index */
+  --modal-z-index: 101;
 }
 
 html,

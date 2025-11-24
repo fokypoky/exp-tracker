@@ -24,6 +24,7 @@ export const CREATE_PAGE_ID = 'create';
 // containers
 
 export const FEATURES_CONTAINER_ID = 'features_container';
+export const MODAL_CONTAINER_ID = 'modal_container';
 
 // local storage
 
@@ -60,7 +61,7 @@ export const PAGINATION_PAGES_COUNT = 7;
 // filters
 
 export const DEFAULT_FILTERS: Filters = {
-  searchString: '',
+  search: '',
   limit: 10,
   offset: 0,
 };

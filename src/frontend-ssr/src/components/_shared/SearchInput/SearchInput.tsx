@@ -8,7 +8,7 @@ type Props = {
 }
 
 export const SearchInput = ({ onSearch }: Props) => {
-  const { control } = useForm<SearchFormType>({
+  const { control, getValues } = useForm<SearchFormType>({
     defaultValues: {
       search: '',
     },
@@ -19,6 +19,10 @@ export const SearchInput = ({ onSearch }: Props) => {
       name="search"
       control={control}
       placeholder="Поиск"
+      onBlur={() => onSearch(getValues('search'))}
+      onKeyDown={(e) => {
+        e.key === 'Enter' && onSearch(getValues('search'));
+      }}
     />
   );
 };

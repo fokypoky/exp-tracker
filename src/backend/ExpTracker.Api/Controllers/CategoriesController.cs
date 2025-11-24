@@ -2,8 +2,11 @@
 using ExpTracker.Api.Extensions;
 using ExpTracker.Api.Mapping.ClaimsParser;
 using ExpTracker.Core.Categories.Commands.Create;
+using ExpTracker.Core.Categories.Commands.Delete;
+using ExpTracker.Core.Categories.Commands.Update;
 using ExpTracker.Core.Categories.Queries.GetCategories;
 using ExpTracker.Core.Categories.Queries.GetCategory;
+using ExpTracker.Entities.Dto;
 using ExpTracker.Entities.Dto.Requests.Categories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -21,17 +24,6 @@ namespace ExpTracker.Api.Controllers
         public CategoriesController(IMediator mediator)
         {
             _mediator = mediator;
-        }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Create([FromBody] CreateCategoryRequest request)
-        {
-            var userId = ClaimsParser.GetUserId(this.User);
-
-            var result = await _mediator.Send(new CreateCategoryCommand(userId, request));
-
-            return this.MapResponse(result);
         }
 
         [HttpGet]
@@ -52,6 +44,39 @@ namespace ExpTracker.Api.Controllers
             var userId = ClaimsParser.GetUserId(this.User);
             
             var result = await _mediator.Send(new GetCategoryQuery(id, userId));
+
+            return this.MapResponse(result);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Create([FromBody] CreateCategoryRequest request)
+        {
+            var userId = ClaimsParser.GetUserId(this.User);
+
+            var result = await _mediator.Send(new CreateCategoryCommand(userId, request));
+
+            return this.MapResponse(result);
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> Update([FromBody] TransactionCategoryDto request)
+        {
+            var userId = ClaimsParser.GetUserId(this.User);
+
+            var result = await _mediator.Send(new UpdateCategoryCommand(userId, request));
+
+            return this.MapResponse(result);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            var userId = ClaimsParser.GetUserId(this.User);
+
+            var result = await _mediator.Send(new DeleteCategoryCommand(id, userId));
 
             return this.MapResponse(result);
         }

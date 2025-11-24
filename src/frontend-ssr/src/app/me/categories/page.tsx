@@ -1,15 +1,23 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { CategoriesRepository } from '@api';
-import { CardList, Page, PageHeader, Pagination, SearchInput } from '@components';
+import { CategoriesRepository, TransactionCategory } from '@api';
+import { ApproveModal, CardList, Page, PageHeader, Pagination, SearchInput } from '@components';
 import { CREATE_PAGE_ID } from '@constants';
 import { useAppRouter, useFetch, useFilters } from '@hooks';
-import { CardListItem } from '@types';
+import { CardListItem, ModalType } from '@types';
+
+const defaultModalState: ModalType<TransactionCategory> = {
+  show: false,
+};
 
 export default function CategoriesPage() {
   const { data, dispatch, totalCount } = useFetch(CategoriesRepository.getList);
+  const { dispatch: dispatchDelete, error } = useFetch(CategoriesRepository.delete);
+
+  const [modalState, setModalState] = useState<ModalType<TransactionCategory>>(defaultModalState);
+
   const { filters, setPage, page, setItemsPerPage, setFilters } = useFilters();
   const navigate = useAppRouter();
 
@@ -17,6 +25,7 @@ export default function CategoriesPage() {
     dispatch({
       limit: filters.limit!,
       offset: filters.offset!,
+      search: (filters.search || '').trim() || undefined,
     });
   }, [filters]);
 
@@ -27,30 +36,53 @@ export default function CategoriesPage() {
       title: item.name,
       description: item.description || '',
       onOpen: () => navigate(`/${item.id}`),
-      onDelete: () => {},
+      onDelete: () => setModalState({ show: true, value: item }),
     }));
-  }, [data, navigate]);
+  }, [data, navigate, filters]);
+
+  const onDeleteItem = (item: TransactionCategory) => {
+    setModalState(defaultModalState);
+
+    dispatchDelete(item.id).then(() => {
+      dispatch({ limit: filters.limit!, offset: filters.offset! });
+    });
+  };
 
   return (
-    <Page
-      header={
-        <PageHeader
-          title="Категории"
-          subtitle="Управляй категориями своих расходов и доходов"
-          onAdd={() => navigate(`/${CREATE_PAGE_ID}`)}
+    <>
+      {modalState.show && (
+        <ApproveModal
+          title="Удаление категории"
+          message={`Вы действительно хотите удалить категорию ${modalState.value!.name}? Действие нельзя будет отменить`}
+          onApprove={() => onDeleteItem(modalState.value!)}
+          onCancel={() => setModalState(defaultModalState)}
         />
-      }
-    >
-      <SearchInput
-        onSearch={(value) => setFilters({ ...filters, searchString: value })}
-      />
-      <CardList items={cardList} />
-      <Pagination
-        totalCount={totalCount}
-        onItemsPerPageChanged={setItemsPerPage}
-        onPageChanged={setPage}
-        page={page}
-      />
-    </Page>
+      )}
+      <Page
+        header={
+          <PageHeader
+            title="Категории"
+            subtitle="Управляй категориями своих расходов и доходов"
+            onAdd={() => navigate(`/${CREATE_PAGE_ID}`)}
+          />
+        }
+      >
+        <SearchInput
+          onSearch={(value) => {
+            filters.search?.trim() !== value.trim() && setFilters({ ...filters, search: value });
+          }}
+        />
+        <CardList
+          items={cardList}
+          emptyText="Категории не найдены. Добавьте их"
+        />
+        <Pagination
+          totalCount={totalCount}
+          onItemsPerPageChanged={setItemsPerPage}
+          onPageChanged={setPage}
+          page={page}
+        />
+      </Page>
+    </>
   );
 }

@@ -1,7 +1,7 @@
 export type CardListItem = {
-	title: string;
-	description: string | React.ReactNode;
+  title: string;
+  description: string | React.ReactNode;
 
-	onOpen(): void;
-	onDelete?(): void;
+  onOpen(): void;
+  onDelete?(): void;
 }

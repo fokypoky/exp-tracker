@@ -12,7 +12,7 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
         public CategoriesRepository(ExpTrackerDbContext context)
         {
             _context = context;
-        }   
+        }
 
         public Task<TransactionCategory?> GetByNameAndUserIdAsync(string name, Guid userId)
         {
@@ -27,9 +27,14 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
             return result.Entity;
         }
 
-        public async Task<PaginatedCollection<TransactionCategory>> GetRangeAsync(Guid userId, int limit, int offset)
+        public async Task<PaginatedCollection<TransactionCategory>> GetRangeAsync(Guid userId, int limit, int offset, string search)
         {
-            var query = _context.TransactionCategories.Where(_ => _.UserId == userId);
+            var lowerSearch = search.ToLower();
+
+            var query = _context.TransactionCategories
+                .Where(e => e.UserId == userId)
+                .Where(e => e.Name.ToLower().Contains(lowerSearch) ||
+                            (e.Description != null && e.Description.ToLower().Contains(lowerSearch)));
 
             return new PaginatedCollection<TransactionCategory>()
             {
@@ -38,9 +43,17 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
             };
         }
 
-        public Task DeleteAsync(TransactionCategory entity)
+        public async Task<bool> IsExistsAsync(Guid id, Guid userId)
         {
-            throw new NotImplementedException();
+            var count = await _context.TransactionCategories.CountAsync(_ => _.Id == id && _.UserId == userId);
+
+            return count > 0;
+        }
+
+        public async Task DeleteAsync(TransactionCategory entity)
+        {
+            _context.TransactionCategories.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
         public Task<TransactionCategory> GetAsync(Guid id)
@@ -52,10 +65,23 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
         {
             return _context.TransactionCategories.FirstOrDefaultAsync(_ => _.Id == id && _.UserId == userId);
         }
-        
-        public Task<TransactionCategory> UpdateAsync(TransactionCategory entity)
+
+        public Task<TransactionCategory?> GetByUserIdAndNameAsync(Guid userId, string name)
         {
-            throw new NotImplementedException();
+            return _context.TransactionCategories.FirstOrDefaultAsync(_ => _.UserId == userId && _.Name == name);
+        }
+
+        public Task<bool> IsRelatedAsync(Guid id)
+        {
+            return _context.Transactions.Where(t => t.CategoryId == id).AnyAsync();
+        }
+
+        public async Task<TransactionCategory> UpdateAsync(TransactionCategory entity)
+        {
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+
+            return entity;
         }
     }
 }

@@ -2,6 +2,7 @@ export { Button, ButtonColor } from './Button/Button';
 export { Dash } from './Dash/Dash';
 export { Input } from './Input/Input';
 export { Label } from './Label/Label';
+export { Modal } from './Modal/Modal';
 export { Notification } from './Notification/Notification';
 export { Pagination } from './Pagination/Pagination';
 export { Spinner } from './Spinner/Spinner';

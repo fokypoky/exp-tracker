@@ -5,7 +5,7 @@ import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@constants';
 
 import { clearStorageTokenPair, setStorageTokenPair } from './localStorage';
 
-type RequestMethod = 'GET' | 'POST';
+type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
@@ -51,7 +51,7 @@ export const authFetchApi = async <TRequest, TResponse>(
 
         const refreshedHeaders: Record<string, string> = { ...headers, 'Authorization': `Bearer ${accessToken}` };
 
-        return fetchApi<TRequest, TResponse>(url, method, body, refreshedHeaders); 
+        return fetchApi<TRequest, TResponse>(url, method, body, refreshedHeaders);
       } catch (e) {
         console.error(e);
         clearStorageTokenPair();

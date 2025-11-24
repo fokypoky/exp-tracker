@@ -12,7 +12,7 @@ export type User = {
 };
 
 export type Filters = {
-  searchString?: string;
+  search?: string;
   limit?: number;
   offset?: number;
 }
