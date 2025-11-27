@@ -1,5 +1,6 @@
 export { Card } from './Card/Card';
 export { CardList } from './CardList/CardList';
+export { EmptyText } from './EmptyText/EmptyText';
 export { Footer } from './Footer/Footer';
 export { InfoField } from './InfoField/InfoField';
 export { LayoutMenu } from './LayoutMenu/LayoutMenu';

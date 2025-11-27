@@ -1,4 +1,4 @@
-import { Button, ButtonColor, Card, CloseIcon } from '@components';
+import { Button, ButtonColor, Card, CloseIcon, EmptyText } from '@components';
 import { CardListItem } from '@types';
 
 import styles from './CardList.module.css';
@@ -44,9 +44,7 @@ export const CardList = ({ items, emptyText }: Props) => {
         </Card>
       ))}
       {items.length === 0 && emptyText && (
-        <div className={styles.card__content_empty}>
-          {emptyText}
-        </div>
+        <EmptyText text={emptyText} />
       )}
     </div>
   );

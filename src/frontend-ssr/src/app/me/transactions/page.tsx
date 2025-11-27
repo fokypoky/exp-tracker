@@ -1,9 +1,7 @@
-import { Page } from '@components';
+import { TransactionsListPage } from '@components';
 
 export default function TransactionsPage() {
   return (
-    <Page>
-      <>123</>
-    </Page>
+    <TransactionsListPage />
   );
 }

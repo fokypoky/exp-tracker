@@ -39,6 +39,15 @@ namespace ExpTracker.Api.Extensions
 					Title = "ExpTracker service",
 					Version = "1.0.0",
                 });
+
+				options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
             });
 
 			builder.Services.AddAuthorization();

@@ -9,6 +9,7 @@ namespace ExpTracker.Api.Extensions
 		{
 			builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 			builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            builder.Services.AddScoped<ITransactionsRepository, TransactionsRepository>();
 
 			return builder;
 		}

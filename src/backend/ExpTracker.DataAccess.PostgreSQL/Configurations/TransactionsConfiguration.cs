@@ -40,7 +40,8 @@ public class TransactionsConfiguration : IEntityTypeConfiguration<Transaction>
             .IsRequired();
 
         builder.Property(e => e.Description)
-            .HasColumnName("description");
+            .HasColumnName("description")
+            .IsRequired(false);
 
         builder
             .HasOne(t => t.User)
