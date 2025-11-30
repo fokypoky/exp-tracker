@@ -2,6 +2,7 @@
 using ExpTracker.Api.Extensions;
 using ExpTracker.Api.Mapping.ClaimsParser;
 using ExpTracker.Core.Transactions.Commands.Create;
+using ExpTracker.Core.Transactions.Queries.GetTransactions;
 using ExpTracker.Entities.Dto.Requests.Transactions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -23,9 +24,13 @@ namespace ExpTracker.Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] GetTransactionsRequest request)
         {
-            throw new NotImplementedException();
+            var userId = ClaimsParser.GetUserId(this.User);
+
+            var result = await _mediator.Send(new GetTransactionsQuery(request, userId));
+
+            return this.MapPaginatedResponse(result);
         }
 
         [HttpPost]
