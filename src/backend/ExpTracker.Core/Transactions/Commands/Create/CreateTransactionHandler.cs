@@ -2,6 +2,7 @@
 using ExpTracker.DataAccess.PostgreSQL.Repositories.Interfaces;
 using ExpTracker.Entities.Common;
 using ExpTracker.Entities.Dto;
+using ExpTracker.EntitiesMapping.Transactions;
 using MediatR;
 
 namespace ExpTracker.Core.Transactions.Commands.Create
@@ -10,11 +11,13 @@ namespace ExpTracker.Core.Transactions.Commands.Create
     {
         private readonly ITransactionsRepository _transactionsRepository;
         private readonly ICategoriesRepository _categoriesRepository;
+        private readonly ITransactionsMapper _mapper;
 
-        public CreateTransactionHandler(ITransactionsRepository transactionsRepository, ICategoriesRepository categoriesRepository)
+        public CreateTransactionHandler(ITransactionsRepository transactionsRepository, ICategoriesRepository categoriesRepository, ITransactionsMapper mapper)
         {
             _transactionsRepository = transactionsRepository;
             _categoriesRepository = categoriesRepository;
+            _mapper = mapper;
         }
 
         public async Task<ServiceResponse<TransactionDto>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
@@ -23,18 +26,13 @@ namespace ExpTracker.Core.Transactions.Commands.Create
 
             if (category == null) return ServiceResponse<TransactionDto>.NotFound("Категория не найдена");
 
-            var transaction = new Transaction()
-            {
-                Category = category,
-                Cost = request.Request.Cost,
-                Date = request.Request.Date, Description = request.Request.Description,
-                IntervalType = request.Request.IntervalType, Type = request.Request.Type,
-                UserId = request.UserId,
-            };
+            var mappedTransaction = _mapper.Map(request.Request, request.UserId);
 
-            var result = await _transactionsRepository.CreateAsync(transaction);
+            var result = await _transactionsRepository.CreateAsync(mappedTransaction);
 
-            throw new NotImplementedException();
+            var mappedResult = _mapper.Map(result);
+            
+            return ServiceResponse<TransactionDto>.Ok(mappedResult);
         }
     }
 }

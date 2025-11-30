@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using ExpTracker.Core.DependencyInjection;
 using ExpTracker.Core.Models;
+using ExpTracker.EntitiesMapping.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -75,6 +76,7 @@ namespace ExpTracker.Api.Extensions
 			builder.Services.AddSingleton<AuthOptions>(_ => CreateAuthOptions(builder));
 
 			builder.Services.AddCoreServices();
+			builder.Services.AddMapping();
 
 			return builder;
 		}

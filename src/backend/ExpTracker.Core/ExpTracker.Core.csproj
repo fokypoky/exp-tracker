@@ -14,6 +14,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ExpTracker.DataAccess.PostgreSQL\ExpTracker.DataAccess.PostgreSQL.csproj" />
+      <ProjectReference Include="..\ExpTracker.EntitiesMapping\ExpTracker.EntitiesMapping.csproj" />
       <ProjectReference Include="..\ExpTracker.Entities\ExpTracker.Entities.csproj" />
     </ItemGroup>
 

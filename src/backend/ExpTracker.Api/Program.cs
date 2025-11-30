@@ -2,6 +2,7 @@ using ExpTracker.Api.Extensions;
 using ExpTracker.DataAccess.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
 	options.SerializerSettings.Formatting = Formatting.Indented;
     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+    options.SerializerSettings.Converters.Add(new StringEnumConverter());
 });
 
 builder.Services.AddDbContext<ExpTrackerDbContext>(options =>
