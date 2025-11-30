@@ -21,6 +21,13 @@ namespace ExpTracker.Api.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Get()
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateTransactionRequest request)

@@ -35,6 +35,11 @@ public class TransactionsConfiguration : IEntityTypeConfiguration<Transaction>
             .HasConversion(new EnumToStringConverter<TransactionIntervalType>())
             .IsRequired();
 
+        builder.Property(e => e.IntervalStrategy)
+            .HasColumnName("interval_strategy")
+            .HasConversion(new EnumToStringConverter<TransactionIntervalStrategy>())
+            .IsRequired(false);
+
         builder.Property(e => e.Date)
             .HasColumnName("date")
             .IsRequired();

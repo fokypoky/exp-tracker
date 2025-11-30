@@ -7,6 +7,7 @@ namespace ExpTracker.Entities.Dto.Requests.Transactions
         public decimal Cost { get; set; }
         public TransactionType Type { get; set; }
         public TransactionIntervalType IntervalType { get; set; }
+        public TransactionIntervalStrategy? IntervalStrategy { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;
         public string? Description { get; set; }
         public Guid CategoryId { get; set; }

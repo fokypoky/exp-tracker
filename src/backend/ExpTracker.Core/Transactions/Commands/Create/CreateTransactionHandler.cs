@@ -1,6 +1,5 @@
 ﻿using ExpTracker.Core.Models;
 using ExpTracker.DataAccess.PostgreSQL.Repositories.Interfaces;
-using ExpTracker.Entities.Common;
 using ExpTracker.Entities.Dto;
 using ExpTracker.EntitiesMapping.Transactions;
 using MediatR;
