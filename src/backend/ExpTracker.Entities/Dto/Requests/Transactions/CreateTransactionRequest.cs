@@ -9,6 +9,7 @@ namespace ExpTracker.Entities.Dto.Requests.Transactions
         public TransactionIntervalType IntervalType { get; set; }
         public TransactionIntervalStrategy? IntervalStrategy { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;
+        public int? DayOfMonth { get; set; }
         public string? Description { get; set; }
         public Guid CategoryId { get; set; }
     }

@@ -48,6 +48,10 @@ public class TransactionsConfiguration : IEntityTypeConfiguration<Transaction>
             .HasColumnName("description")
             .IsRequired(false);
 
+        builder.Property(e => e.DayOfMonth)
+            .HasColumnName("day_of_month")
+            .IsRequired(false);
+
         builder
             .HasOne(t => t.User)
             .WithMany(u => u.Transactions);

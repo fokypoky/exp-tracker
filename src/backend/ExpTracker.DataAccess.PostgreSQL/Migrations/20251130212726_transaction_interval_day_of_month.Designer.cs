@@ -3,6 +3,7 @@ using System;
 using ExpTracker.DataAccess.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ExpTracker.DataAccess.PostgreSQL.Migrations
 {
     [DbContext(typeof(ExpTrackerDbContext))]
-    partial class ExpTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251130212726_transaction_interval_day_of_month")]
+    partial class transaction_interval_day_of_month
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

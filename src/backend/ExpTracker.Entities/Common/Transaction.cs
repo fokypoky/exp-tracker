@@ -10,6 +10,7 @@ namespace ExpTracker.Entities.Common
         public TransactionIntervalType IntervalType { get; set; }
         public TransactionIntervalStrategy? IntervalStrategy { get; set; }
         public DateTime Date { get; set; }
+        public int? DayOfMonth { get; set; }
         public string Description { get; set; }
 
         public User User { get; set; }
