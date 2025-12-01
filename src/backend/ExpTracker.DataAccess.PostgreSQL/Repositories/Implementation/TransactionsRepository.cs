@@ -48,6 +48,11 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
             };
         }
 
+        public Task<Transaction?> GetByIdAndUserIdAsync(Guid id, Guid userId)
+        {
+            return _context.Transactions.FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
+        }
+
         public async Task<Transaction> CreateAsync(Transaction entity)
         {
             await _context.Transactions.AddAsync(entity);
@@ -55,9 +60,10 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
             return entity;
         }
 
-        public Task DeleteAsync(Transaction entity)
+        public async Task DeleteAsync(Transaction entity)
         {
-            throw new NotImplementedException();
+            _context.Transactions.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
         public Task<Transaction> UpdateAsync(Transaction entity)

@@ -2,6 +2,7 @@
 using ExpTracker.Api.Extensions;
 using ExpTracker.Api.Mapping.ClaimsParser;
 using ExpTracker.Core.Transactions.Commands.Create;
+using ExpTracker.Core.Transactions.Commands.Delete;
 using ExpTracker.Core.Transactions.Queries.GetTransactions;
 using ExpTracker.Entities.Dto.Requests.Transactions;
 using MediatR;
@@ -40,6 +41,17 @@ namespace ExpTracker.Api.Controllers
             var userId = ClaimsParser.GetUserId(this.User);
 
             var result = await _mediator.Send(new CreateTransactionCommand(request, userId));
+
+            return this.MapResponse(result);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            var userId = ClaimsParser.GetUserId(this.User);
+
+            var result = await _mediator.Send(new DeleteTransactionCommand(id, userId));
 
             return this.MapResponse(result);
         }
