@@ -6,5 +6,6 @@ namespace ExpTracker.Entities.Dto.Requests.Transactions
     {
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
+        public bool RawData { get; set; } = false;
     }
 }

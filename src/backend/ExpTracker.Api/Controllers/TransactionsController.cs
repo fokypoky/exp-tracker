@@ -3,6 +3,7 @@ using ExpTracker.Api.Extensions;
 using ExpTracker.Api.Mapping.ClaimsParser;
 using ExpTracker.Core.Transactions.Commands.Create;
 using ExpTracker.Core.Transactions.Commands.Delete;
+using ExpTracker.Core.Transactions.Queries.GetTransaction;
 using ExpTracker.Core.Transactions.Queries.GetTransactions;
 using ExpTracker.Entities.Dto.Requests.Transactions;
 using MediatR;
@@ -32,6 +33,17 @@ namespace ExpTracker.Api.Controllers
             var result = await _mediator.Send(new GetTransactionsQuery(request, userId));
 
             return this.MapPaginatedResponse(result);
+        }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var userId = ClaimsParser.GetUserId(this.User);
+
+            var result = await _mediator.Send(new GetTransactionQuery(id, userId));
+
+            return this.MapResponse(result);
         }
 
         [HttpPost]

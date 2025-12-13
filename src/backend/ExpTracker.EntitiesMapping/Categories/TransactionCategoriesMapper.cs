@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ExpTracker.DataAccess.PostgreSQL.Models.Filters;
 using ExpTracker.Entities.Common;
 using ExpTracker.Entities.Dto;
 using ExpTracker.Entities.Dto.Requests.Categories;
@@ -33,6 +34,11 @@ namespace ExpTracker.EntitiesMapping.Categories
             result.UserId = userId;
 
             return result;
+        }
+
+        public CategoryFilters MapFilters(GetCategoriesRequest request)
+        {
+            return _mapper.Map<GetCategoriesRequest, CategoryFilters>(request);
         }
     }
 }

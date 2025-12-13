@@ -13,8 +13,9 @@ export type RefreshTokenRequest = {
 
 export type GetCategoriesRequest = {
   search?: string;
-  limit: number;
-  offset: number;
+  noLimit?: boolean;
+  limit?: number;
+  offset?: number;
 }
 
 export type GetCategoryRequest = {
@@ -49,4 +50,44 @@ export type TransactionCategory = {
   id: string;
   name: string;
   description?: string;
+}
+
+// transactions
+
+export type GetTransactionsRequest = {
+  search?: string;
+  limit?: number;
+  offset?: number;
+}
+
+export type GetTransactionRequest = {
+  id: string;
+}
+
+export enum TransactionType {
+  withdraw = 'Withdraw',
+  deposit = 'Deposit',
+}
+
+export enum TransactionIntervalType {
+  single = 'Single',
+  repeatable = 'Repeatable',
+}
+
+export enum TransactionIntervalStrategy {
+  firstDayOfMonth = 'FirstDayOfMonth',
+  lastDayOfMonth = 'LastDayOfMonth',
+  specifiedDayOfMonth = 'SpecifiedDayOfMonth',
+}
+
+export type Transaction = {
+  id?: string;
+  cost: number;
+  type: TransactionType;
+  intervalType: TransactionIntervalType;
+  intervalStrategy?: TransactionIntervalStrategy;
+  date: string;
+  dayOfMonth?: number;
+  description?: string;
+  category: TransactionCategory;
 }

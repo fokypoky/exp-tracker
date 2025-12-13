@@ -23,6 +23,7 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
         public async Task<PaginatedCollection<Transaction>> GetRangeAsync(Guid userId, TransactionFilters filters)
         {
             var query = _context.Transactions
+                .Include(x => x.Category)
                 .Where(x => x.UserId == userId);
 
             if (!String.IsNullOrEmpty(filters.Search))
@@ -46,6 +47,13 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
                 Data = await query.Skip(filters.Offset).Take(filters.Limit).ToListAsync(),
                 TotalCount = await query.CountAsync()
             };
+        }
+
+        public Task<Transaction?> GetByIdWithCategoryAsync(Guid id, Guid userId)
+        {
+            return _context.Transactions
+                    .Include(x => x.Category)
+                    .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
         }
 
         public Task<Transaction?> GetByIdAndUserIdAsync(Guid id, Guid userId)

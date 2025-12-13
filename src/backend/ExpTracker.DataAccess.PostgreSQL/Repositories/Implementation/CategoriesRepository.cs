@@ -1,4 +1,5 @@
 ﻿using ExpTracker.DataAccess.PostgreSQL.Models;
+using ExpTracker.DataAccess.PostgreSQL.Models.Filters;
 using ExpTracker.DataAccess.PostgreSQL.Repositories.Interfaces;
 using ExpTracker.Entities.Common;
 using Microsoft.EntityFrameworkCore;
@@ -27,23 +28,28 @@ namespace ExpTracker.DataAccess.PostgreSQL.Repositories.Implementation
             return result.Entity;
         }
 
-        public async Task<PaginatedCollection<TransactionCategory>> GetRangeAsync(Guid userId, int limit, int offset, string? search)
+        public async Task<PaginatedCollection<TransactionCategory>> GetRangeAsync(Guid userId, CategoryFilters filters)
         {
             var query = _context.TransactionCategories
                 .Where(e => e.UserId == userId);
 
-            if (!String.IsNullOrEmpty(search))
+            if (!String.IsNullOrEmpty(filters.Search))
             {
-                var lowerSearch = search.ToLower();
+                var lowerSearch = filters.Search.ToLower();
                 query = query.Where(e => e.Name.ToLower().Contains(lowerSearch) ||
                                          (e.Description != null && e.Description.ToLower().Contains(lowerSearch)));
             }
 
             return new PaginatedCollection<TransactionCategory>()
             {
-                Data = await query.Skip(offset).Take(limit).ToListAsync(),
+                Data = await query.Skip(filters.Offset).Take(filters.Limit).ToListAsync(),
                 TotalCount = await query.CountAsync(),
             };
+        }
+
+        public Task<List<TransactionCategory>> GetRangeAsync(Guid userId)
+        {
+            return _context.TransactionCategories.Where(x => x.UserId == userId).ToListAsync();
         }
 
         public async Task<bool> IsExistsAsync(Guid id, Guid userId)

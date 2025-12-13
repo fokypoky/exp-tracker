@@ -4,6 +4,7 @@ using ExpTracker.Api.Mapping.ClaimsParser;
 using ExpTracker.Core.Categories.Commands.Create;
 using ExpTracker.Core.Categories.Commands.Delete;
 using ExpTracker.Core.Categories.Commands.Update;
+using ExpTracker.Core.Categories.Queries.GetAllCategories;
 using ExpTracker.Core.Categories.Queries.GetCategories;
 using ExpTracker.Core.Categories.Queries.GetCategory;
 using ExpTracker.Entities.Dto;
@@ -32,8 +33,13 @@ namespace ExpTracker.Api.Controllers
         {
             var userId = ClaimsParser.GetUserId(this.User);
 
-            var result = await _mediator.Send(new GetCategoriesQuery(userId, request));
+            if (request.NoLimit)
+            {
+                var allResult = await _mediator.Send(new GetAllCategoriesQuery(userId));
+                return this.MapResponse(allResult);
+            }
 
+            var result = await _mediator.Send(new GetCategoriesQuery(userId, request));
             return this.MapPaginatedResponse(result);
         }
 

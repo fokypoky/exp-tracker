@@ -1,5 +1,6 @@
 // routes
 
+import { TransactionType } from '@api';
 import { ComponentSize, Filters, Option } from '@types';
 
 export enum APP_ROUTES {
@@ -45,9 +46,19 @@ export const FONT_SIZES_MAPPING: Record<ComponentSize, string> = {
   ['l']: '1.25rem',
 };
 
+export const TRANSACTION_TYPE_MAPPING: Record<TransactionType, string> = {
+  [TransactionType.withdraw]: 'Списание',
+  [TransactionType.deposit]: 'Пополнение',
+};
+
 // http
 
 export const TOTAL_COUNT_HEADER = 'x-total-count';
+
+// datetime
+
+export const UTC_DATE_TIME_FORMAT = 'YYYYY-MM-DDTHH:mm:ss:SSSSSSZ';
+export const DATE_TIME_FORMAT = 'HH:mm DD.MM.YYYY';
 
 // pagination
 export const PAGINATION_ITEMS_PER_PAGE = [10, 20, 50];

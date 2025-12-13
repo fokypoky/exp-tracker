@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ExpTracker.DataAccess.PostgreSQL.Models.Filters;
 using ExpTracker.Entities.Common;
 using ExpTracker.Entities.Dto;
 using ExpTracker.Entities.Dto.Requests.Categories;
@@ -12,6 +13,8 @@ namespace ExpTracker.EntitiesMapping.Categories
             CreateMap<TransactionCategory, TransactionCategoryDto>()
                 .ReverseMap();
             CreateMap<CreateCategoryRequest, TransactionCategory>();
+
+            CreateMap<GetCategoriesRequest, CategoryFilters>();
         }
     }
 }
