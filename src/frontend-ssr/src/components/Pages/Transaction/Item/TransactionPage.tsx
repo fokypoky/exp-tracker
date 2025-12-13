@@ -32,7 +32,7 @@ export const TransactionPage = ({ id }: Props) => {
   } = useFetch(CategoriesRepository.getList);
 
   const {
-    dispatch:spatchGET,
+    dispatch: dispatchGET,
     data: dataGET,
     error: errorGET,
     loading: loadingGET,
