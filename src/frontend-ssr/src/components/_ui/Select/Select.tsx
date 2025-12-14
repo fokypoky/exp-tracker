@@ -66,7 +66,7 @@ const CustomSelect = ({ menuPlacement = 'bottom', size = 'm', ...props }: Props)
 				/>
 			)}
 			<Select
-				instanceId={'react-select'}
+				instanceId={'react-select'} // Для Next.js обязателен
 				options={props.options}
 				value={props.value}
 				onChange={(value) => {
@@ -74,7 +74,12 @@ const CustomSelect = ({ menuPlacement = 'bottom', size = 'm', ...props }: Props)
 				}}
 				menuPlacement={menuPlacement}
 				isDisabled={props.disabled}
-				placeholder={props.placeholder}
+				placeholder={props.placeholder || 'Выберите'}
+				noOptionsMessage={() => (
+					<div className={styles.select__no_options}>
+						<Label text="Нет доступных опций" gray />
+					</div>
+				)}
 				components={{
 					DropdownIndicator: (props) => <DropdownIndicator {...props} />,
 					IndicatorSeparator: () => null,
@@ -83,7 +88,7 @@ const CustomSelect = ({ menuPlacement = 'bottom', size = 'm', ...props }: Props)
 					control: (base, state) => ({
 						...base,
 						border: '1px solid var(--text-secondary)',
-						borderRadius: 'var(--size-spacing-8)',
+						borderRadius: '8px',
 						boxShadow: 'none', // !!! ВАЖНО ЧТОБЫ УБРАТЬ СИНЮЮ ОБВОДКУ КОГДА МЕНЮ ОТКРЫТО
 						'&:hover': {
 							borderColor: 'var(--text-primary)',

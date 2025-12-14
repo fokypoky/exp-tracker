@@ -1,6 +1,6 @@
 // routes
 
-import { TransactionType } from '@api';
+import { TransactionIntervalType, TransactionType } from '@api';
 import { ComponentSize, Filters, Option } from '@types';
 
 export enum APP_ROUTES {
@@ -49,6 +49,11 @@ export const FONT_SIZES_MAPPING: Record<ComponentSize, string> = {
 export const TRANSACTION_TYPE_MAPPING: Record<TransactionType, string> = {
   [TransactionType.withdraw]: 'Списание',
   [TransactionType.deposit]: 'Пополнение',
+};
+
+export const TRANSACTION_INTERVAL_TYPE_MAPPING: Record<TransactionIntervalType, string> = {
+  [TransactionIntervalType.single]: 'Разовая',
+  [TransactionIntervalType.repeatable]: 'Периодическая',
 };
 
 // http

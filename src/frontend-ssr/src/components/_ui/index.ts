@@ -5,6 +5,7 @@ export { Label } from './Label/Label';
 export { Modal } from './Modal/Modal';
 export { Notification } from './Notification/Notification';
 export { Pagination } from './Pagination/Pagination';
+export { RadioButton } from './RadioButton/RadioButton';
 export { Spinner } from './Spinner/Spinner';
 export { SelectComponent as Select } from './Select/Select';
 export { Table } from './Table/Table';

@@ -6,3 +6,12 @@
 	flex-direction: column;
 	gap: var(--size-spacing-8);
 }
+
+.select__no_options {
+	height: 100%;
+	width: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

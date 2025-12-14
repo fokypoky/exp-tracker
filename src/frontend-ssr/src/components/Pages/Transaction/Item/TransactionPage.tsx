@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { CategoriesRepository, TransactionsRepository, TransactionType } from '@api';
+import { CategoriesRepository, TransactionsRepository } from '@api';
 import { Loading, Page, PageActions, PageHeader } from '@components';
 import { APP_WORKSPACE_ROUTES, CREATE_PAGE_ID, TRANSACTION_FORM_DEFAULTS } from '@constants';
 import { useAppRouter, useFetch } from '@hooks';
@@ -49,6 +49,12 @@ export const TransactionPage = ({ id }: Props) => {
     !editMode && dispatchGET({ id }).then((res) => {
       res && form.reset(res);
     });
+
+    const { unsubscribe } = form.watch((data) => {
+      console.log('FORM CHANGED', data);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const onSave = () => {
@@ -78,7 +84,7 @@ export const TransactionPage = ({ id }: Props) => {
       {loading ? (
         <Loading />
       ) : (
-        <Properties form={form} editMode={editMode} />
+        <Properties form={form} editMode={editMode} categories={dataCategories || []} />
       )}
     </Page>
   );

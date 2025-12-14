@@ -10,4 +10,5 @@ export { Navbar } from './Navbar/Navbar';
 export { Page } from './Page/Page';
 export { PageActions } from './PageActions/PageActions';
 export { PageHeader } from './PageHeader/PageHeader';
+export { RadioButtonGroup } from './RadioButtonGroup/RadioButtonGroup';
 export { SearchInput } from './SearchInput/SearchInput';

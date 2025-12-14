@@ -1,0 +1,61 @@
+.radio_container {
+  display: flex;
+  gap: var(--size-spacing-8);
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.circle_outer {
+  border-radius: 50%;
+  background: white;
+  border: 1px black solid;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle_outer__selected {
+  background: black;
+}
+
+.circle_outer__s {
+  height: 15px;
+  width: 15px;
+}
+
+.circle_outer__m {
+  width: 20px;
+  height: 20px;
+}
+
+.circle_outer__l {
+  width: 25px;
+  height: 25px;
+}
+
+.circle_outer__error {
+
+}
+
+.circle_inner {
+  border-radius: 50%;
+  background: white;
+}
+
+.circle_inner__s {
+  height: 7px;
+  width: 7px;
+}
+
+.circle_inner__m {
+  height: 10px;
+  width: 10px;
+}
+
+.circle_inner__l {
+  height: 11px;
+  width: 11px;
+}

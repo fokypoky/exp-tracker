@@ -1,5 +1,6 @@
 export * from './cardList';
 export * from './common';
+export * from './configs';
 export * from './forms';
 export * from './modal';
 export * from './notifier';
