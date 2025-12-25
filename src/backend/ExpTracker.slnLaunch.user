@@ -1,0 +1,23 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "ExpTracker.Api\\ExpTracker.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "ExpTracker.GroupsService.Api\\ExpTracker.GroupsService.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "ExpTracker.BFF\\ExpTracker.BFF.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "ExpTracker.AnalyticsService.Api\\ExpTracker.AnalyticsService.Api.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

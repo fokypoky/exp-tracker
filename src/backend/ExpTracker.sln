@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11222.15 d18.0
+VisualStudioVersion = 18.0.11222.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{7251A3A7-F30A-4B17-BD44-630CEBF50412}"
 EndProject
@@ -28,6 +28,20 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.Api.Tests", "ExpTracker.Api.Tests\ExpTracker.Api.Tests.csproj", "{B3CAC28B-141C-41C2-9087-1D86AEC26A8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.EntitiesMapping", "ExpTracker.EntitiesMapping\ExpTracker.EntitiesMapping.csproj", "{0A0A195A-DD3F-46C1-8250-543DDC22B1F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.GroupsService.Api", "ExpTracker.GroupsService.Api\ExpTracker.GroupsService.Api.csproj", "{487C0AAC-B394-4458-B481-53391B267D6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.BFF", "ExpTracker.BFF\ExpTracker.BFF.csproj", "{45669C50-2B0C-41C8-BD00-8EBCA7F72879}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.AnalyticsService.Api", "ExpTracker.AnalyticsService.Api\ExpTracker.AnalyticsService.Api.csproj", "{4FC75FFF-D9AC-4134-91F9-F3847D816AA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.AnalyticsService.Core", "ExpTracker.AnalyticsService.Core\ExpTracker.AnalyticsService.Core.csproj", "{ECD9E0B6-994D-4041-BC4A-F60E0530990B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.GroupsService.Core", "ExpTracker.GroupsService.Core\ExpTracker.GroupsService.Core.csproj", "{B22AF7A7-9451-43B5-B6D6-FDA4175A9523}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.GroupsService.DataAccess.PostgreSQL", "ExpTracker.GroupsService.DataAccess.PostgreSQL\ExpTracker.GroupsService.DataAccess.PostgreSQL.csproj", "{F6F7B7C1-FBD1-4E8E-B04D-ABBE74331A95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpTracker.AnalyticsService.DataAccess.PostgreSQL", "ExpTracker.AnalyticsService.DataAccess.PostgreSQL\ExpTracker.AnalyticsService.DataAccess.PostgreSQL.csproj", "{F5300806-DD8E-4E43-B06B-CC31BAE7B0B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +81,34 @@ Global
 		{0A0A195A-DD3F-46C1-8250-543DDC22B1F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A0A195A-DD3F-46C1-8250-543DDC22B1F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A0A195A-DD3F-46C1-8250-543DDC22B1F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{487C0AAC-B394-4458-B481-53391B267D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{487C0AAC-B394-4458-B481-53391B267D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{487C0AAC-B394-4458-B481-53391B267D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{487C0AAC-B394-4458-B481-53391B267D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45669C50-2B0C-41C8-BD00-8EBCA7F72879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45669C50-2B0C-41C8-BD00-8EBCA7F72879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45669C50-2B0C-41C8-BD00-8EBCA7F72879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45669C50-2B0C-41C8-BD00-8EBCA7F72879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FC75FFF-D9AC-4134-91F9-F3847D816AA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FC75FFF-D9AC-4134-91F9-F3847D816AA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FC75FFF-D9AC-4134-91F9-F3847D816AA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FC75FFF-D9AC-4134-91F9-F3847D816AA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECD9E0B6-994D-4041-BC4A-F60E0530990B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECD9E0B6-994D-4041-BC4A-F60E0530990B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECD9E0B6-994D-4041-BC4A-F60E0530990B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECD9E0B6-994D-4041-BC4A-F60E0530990B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B22AF7A7-9451-43B5-B6D6-FDA4175A9523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B22AF7A7-9451-43B5-B6D6-FDA4175A9523}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B22AF7A7-9451-43B5-B6D6-FDA4175A9523}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B22AF7A7-9451-43B5-B6D6-FDA4175A9523}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6F7B7C1-FBD1-4E8E-B04D-ABBE74331A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6F7B7C1-FBD1-4E8E-B04D-ABBE74331A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6F7B7C1-FBD1-4E8E-B04D-ABBE74331A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6F7B7C1-FBD1-4E8E-B04D-ABBE74331A95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5300806-DD8E-4E43-B06B-CC31BAE7B0B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5300806-DD8E-4E43-B06B-CC31BAE7B0B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5300806-DD8E-4E43-B06B-CC31BAE7B0B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5300806-DD8E-4E43-B06B-CC31BAE7B0B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,5 +122,15 @@ Global
 		{9C7B3D69-6EA5-4566-8DE4-201BD45B1892} = {2842D193-9D2A-43D9-8A61-48171C080E1B}
 		{B3CAC28B-141C-41C2-9087-1D86AEC26A8C} = {2842D193-9D2A-43D9-8A61-48171C080E1B}
 		{0A0A195A-DD3F-46C1-8250-543DDC22B1F7} = {A09D35D4-5FB5-46FF-86AA-71B4C63769B1}
+		{487C0AAC-B394-4458-B481-53391B267D6E} = {7251A3A7-F30A-4B17-BD44-630CEBF50412}
+		{45669C50-2B0C-41C8-BD00-8EBCA7F72879} = {7251A3A7-F30A-4B17-BD44-630CEBF50412}
+		{4FC75FFF-D9AC-4134-91F9-F3847D816AA4} = {7251A3A7-F30A-4B17-BD44-630CEBF50412}
+		{ECD9E0B6-994D-4041-BC4A-F60E0530990B} = {D5DAB59B-80C8-4169-B8D6-A21D2F69CF0C}
+		{B22AF7A7-9451-43B5-B6D6-FDA4175A9523} = {D5DAB59B-80C8-4169-B8D6-A21D2F69CF0C}
+		{F6F7B7C1-FBD1-4E8E-B04D-ABBE74331A95} = {74E8017C-F09F-40C3-94E7-E2E370E9C0A3}
+		{F5300806-DD8E-4E43-B06B-CC31BAE7B0B6} = {74E8017C-F09F-40C3-94E7-E2E370E9C0A3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7507440F-A4C0-43DA-9155-37B2E4BA0E3F}
 	EndGlobalSection
 EndGlobal

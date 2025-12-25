@@ -1,0 +1,6 @@
+@ExpTracker.BFF_HostAddress = http://localhost:5214
+
+GET {{ExpTracker.BFF_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
