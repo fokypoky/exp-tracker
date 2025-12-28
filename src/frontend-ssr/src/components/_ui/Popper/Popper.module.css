@@ -1,0 +1,6 @@
+.popper {
+  position: fixed;
+  z-index: var(--popper-z-index);
+
+
+}

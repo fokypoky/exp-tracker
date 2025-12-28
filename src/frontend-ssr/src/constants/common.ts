@@ -26,6 +26,7 @@ export const CREATE_PAGE_ID = 'create';
 
 export const FEATURES_CONTAINER_ID = 'features_container';
 export const MODAL_CONTAINER_ID = 'modal_container';
+export const POPPER_CONTAINER_ID = 'popper_container';
 
 // local storage
 

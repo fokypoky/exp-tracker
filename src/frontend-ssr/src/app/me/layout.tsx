@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import '../globals.css';
 
-import { LayoutMenu, Logo, Notification } from '@components';
+import { LayoutMenu, Logo, Notification, ModalContainer, PopperContainer } from '@components';
 import { APP_ROUTES, MODAL_CONTAINER_ID } from '@constants';
 import { ProtectedProviders } from '@providers';
 
@@ -24,7 +24,8 @@ export default function RootLayout({ children }: Readonly<{children: React.React
     <html lang="ru">
       <body className={classNames(geistSans.className, styles.body)}>
         <ProtectedProviders>
-          <div id={MODAL_CONTAINER_ID} />
+          <ModalContainer />
+          <PopperContainer />
           <div className={styles.nav}>
             <Logo url={APP_ROUTES.overview} />
           </div>
